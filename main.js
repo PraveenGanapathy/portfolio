@@ -1593,8 +1593,11 @@ function initFaviconAnimation() {
     // console.log("Favicon animation initialized");
 }
 
-// Simplified form handler for EmailJS
+//  EmailJS parameters and initialization
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize EmailJS 
+    emailjs.init("oi1LRLkeOCZezCLSp");
+    
     const resumeForm = document.getElementById('resumeRequestForm');
     if (resumeForm) {
         resumeForm.addEventListener('submit', function (e) {
@@ -1622,25 +1625,24 @@ document.addEventListener('DOMContentLoaded', function () {
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
             submitButton.disabled = true;
 
-            // EmailJS parameters 
+            // EmailJS parameters
             const templateParams = {
                 to_email: email,
                 from_name: "Praveen Ganapathy Ravi",
-                resume_link: "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf", 
+                resume_link: "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf",
+                message: "Thank you for your interest in my portfolio!"
             };
 
-            // Send email using EmailJS 
+            // Send email using EmailJS
             emailjs.send(
-                "service_o5jyuif",
-               "template_rer0jo8",
-                "oi1LRLkeOCZezCLSp"
+                "service_o5jyuif",        // Service ID
+                "template_rer0jo8",       // Template ID
+                templateParams            // Template parameters
             )
                 .then(function (response) {
-                    // console.log('Email sent!', response.status, response.text);
-
                     // Success
                     emailInput.value = '';
-                    successMsg.innerHTML = `Thank you! <a href="${"https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf"}" target="_blank" class="alert-link">Click here to download my resume</a>`;
+                    successMsg.innerHTML = `Thank you! <a href="https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf" target="_blank" class="alert-link">Click here to download my resume</a>`;
                     successMsg.classList.remove('d-none');
 
                     // Store in localStorage
