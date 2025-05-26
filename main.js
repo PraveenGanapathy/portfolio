@@ -1622,26 +1622,25 @@ document.addEventListener('DOMContentLoaded', function () {
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
             submitButton.disabled = true;
 
-            // EmailJS parameters - using environment variables
+            // EmailJS parameters 
             const templateParams = {
                 to_email: email,
                 from_name: "Praveen Ganapathy Ravi",
-                resume_link: window.ENV.RESUME_LINK, // Using environment variable
-                message: "Thank you for your interest in my portfolio!"
+                resume_link: "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf", 
             };
 
-            // Send email using EmailJS with environment variables
+            // Send email using EmailJS 
             emailjs.send(
-                window.ENV.EMAILJS_SERVICE_ID,
-                window.ENV.EMAILJS_TEMPLATE_ID,
-                templateParams
+                "service_o5jyuif",
+               "template_rer0jo8",
+                "oi1LRLkeOCZezCLSp"
             )
                 .then(function (response) {
                     // console.log('Email sent!', response.status, response.text);
 
                     // Success
                     emailInput.value = '';
-                    successMsg.innerHTML = `Thank you! <a href="${window.ENV.RESUME_LINK}" target="_blank" class="alert-link">Click here to download my resume</a>`;
+                    successMsg.innerHTML = `Thank you! <a href="${"https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf"}" target="_blank" class="alert-link">Click here to download my resume</a>`;
                     successMsg.classList.remove('d-none');
 
                     // Store in localStorage
