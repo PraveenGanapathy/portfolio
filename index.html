@@ -241,7 +241,6 @@
     <!-- Portfolio Data -->
     <script src="data.js"></script>
 
-    <script src="env-config.js"></script>
     <!-- Main JS -->
     <script src="main.js"></script>
     <script>
@@ -322,12 +321,11 @@
     </script>
 
     <!-- Add EmailJS script before closing body tag -->
-    <script src="env-config.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function () {
-            // Initialize EmailJS with User ID from environment config
-            emailjs.init(window.ENV.EMAILJS_USER_ID);
+            // Initialize EmailJS with direct User ID
+            emailjs.init("oi1LRLkeOCZezCLSp");
         })();
     </script>
 </body>

@@ -1,6 +1,3 @@
-// Add at the beginning of main.js
-console.log('main.js loaded, ENV status:', window.ENV ? 'Available' : 'Not available');
-
 // Main initialization function - Single source of truth
 document.addEventListener("DOMContentLoaded", function () {
     // console.log("DOM loaded, initializing components...");
