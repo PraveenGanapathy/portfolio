@@ -1629,14 +1629,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const templateParams = {
                 to_email: email,
                 from_name: "Praveen Ganapathy Ravi",
-                resume_link: window.ENV.RESUME_LINK, // Using environment variable
+                resume_link: window.ENV ? window.ENV.RESUME_LINK : "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf", // Using environment variable
                 message: "Thank you for your interest in my portfolio!"
             };
 
             // Send email using EmailJS with environment variables
             emailjs.send(
-                window.ENV.EMAILJS_SERVICE_ID,
-                window.ENV.EMAILJS_TEMPLATE_ID,
+                window.ENV ? window.ENV.EMAILJS_SERVICE_ID : "service_o5jyuif",
+                window.ENV ? window.ENV.EMAILJS_TEMPLATE_ID : "template_rer0jo8",
                 templateParams
             )
                 .then(function (response) {
