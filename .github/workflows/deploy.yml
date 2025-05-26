@@ -29,10 +29,31 @@ jobs:
             exit 1
           fi
           
-          echo "env-config.js created successfully"
+          echo "env-config.js created successfully with size $(stat -c%s env-config.js) bytes"
+      
+      - name: Remove env-config.js from .gitignore
+        run: |
+          # Remove env-config.js from .gitignore
+          if [ -f .gitignore ]; then
+            grep -v "env-config.js" .gitignore > .gitignore.tmp
+            mv .gitignore.tmp .gitignore
+            echo "Updated .gitignore to allow env-config.js"
+          else
+            echo "No .gitignore file found"
+          fi
+      
+      - name: Verify files for deployment
+        run: |
+          echo "Contents of deployment directory:"
+          ls -la
+          echo "Checking env-config.js:"
+          cat env-config.js | head -n 1
+          echo "[...file contents truncated for security...]"
           
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: .
+          clean: true
+          force: true
