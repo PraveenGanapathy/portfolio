@@ -1,0 +1,29 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Create env-config.js with secrets
+        run: |
+          cat > env-config.js << EOF
+          (function(window) {
+              window.ENV = {
+                  EMAILJS_SERVICE_ID: "${{ secrets.EMAILJS_SERVICE_ID }}",
+                  EMAILJS_TEMPLATE_ID: "${{ secrets.EMAILJS_TEMPLATE_ID }}",
+                  EMAILJS_USER_ID: "${{ secrets.EMAILJS_USER_ID }}",
+                  RESUME_LINK: "${{ secrets.RESUME_LINK }}"
+              };
+          })(this);
+          EOF
+          
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .

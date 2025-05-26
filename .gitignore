@@ -1,0 +1,16 @@
+# Environment variables
+.env
+env-config.js
+
+# Node modules
+node_modules/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
