@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(initFaviconAnimation, 1000);
 
     // Track performance
-    trackPagePerformance();
+    //trackPagePerformance();
 });
 
 // Consolidated timeline enhancement function
@@ -1707,10 +1707,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Analytics event tracking
+// Analytics event tracking - add this to your main.js
 function setupAnalyticsTracking() {
     // Skip if gtag isn't available
-    if (typeof gtag !== 'function') return;
+    if (typeof gtag !== 'function') {
+        //console.log('Google Analytics not available - skipping event tracking setup');
+        return;
+    }
+    
+    //console.log('Setting up analytics event tracking');
     
     // Track resume form submissions
     const resumeForm = document.getElementById('resumeRequestForm');
@@ -1720,79 +1725,69 @@ function setupAnalyticsTracking() {
                 'event_category': 'engagement',
                 'event_label': 'Resume Download'
             });
+            //console.log('Resume request event tracked');
         });
     }
     
     // Track project clicks
     document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('click', function() {
-            const projectTitle = this.querySelector('.project-title').textContent;
+            const projectTitle = this.querySelector('.project-title')?.textContent || 'Unknown Project';
             gtag('event', 'view_project', {
                 'event_category': 'engagement',
                 'event_label': projectTitle
             });
+            //console.log('Project view event tracked:', projectTitle);
         });
     });
     
     // Track social media clicks
-    document.querySelectorAll('.social-link').forEach(link => {
+    document.querySelectorAll('.social-icon').forEach(link => {
         link.addEventListener('click', function() {
-            const platform = this.getAttribute('data-platform');
+            const platform = this.getAttribute('title') || this.getAttribute('aria-label') || 'Unknown Platform';
             gtag('event', 'social_click', {
                 'event_category': 'outbound',
                 'event_label': platform
             });
+            //console.log('Social click event tracked:', platform);
         });
     });
     
-    // Track section visibility
-    setupSectionVisibilityTracking();
-}
-
-// Track when sections become visible
-function setupSectionVisibilityTracking() {
-    // Skip if IntersectionObserver or gtag isn't available
-    if (!('IntersectionObserver' in window) || typeof gtag !== 'function') return;
-    
-    const sections = document.querySelectorAll('section[id]');
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionId = entry.target.getAttribute('id');
-                gtag('event', 'section_view', {
-                    'event_category': 'engagement',
-                    'event_label': sectionId
-                });
-                // Only track each section once
-                sectionObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 }); // Trigger when 30% of section is visible
-    
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-}
-
-// Track page load performance
-function trackPagePerformance() {
-    // Skip if gtag or performance timing isn't available
-    if (typeof gtag !== 'function' || !window.performance) return;
-    
-    // Wait for everything to load
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const perfData = window.performance.timing;
-            const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-            const domReadyTime = perfData.domComplete - perfData.domLoading;
-            
-            // Send performance data to GA
-            gtag('event', 'performance', {
-                'event_category': 'timing',
-                'event_label': 'page_load',
-                'value': Math.round(pageLoadTime),
-                'dom_ready': Math.round(domReadyTime)
+    // Track navigation clicks
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            const section = this.getAttribute('href').replace('#', '') || 'Unknown Section';
+            gtag('event', 'navigation', {
+                'event_category': 'engagement',
+                'event_label': section
             });
-        }, 0);
+            //console.log('Navigation event tracked:', section);
+        });
     });
+    
+    // Track direct email button clicks
+    const emailBtn = document.querySelector('.email-btn');
+    if (emailBtn) {
+        emailBtn.addEventListener('click', function() {
+            gtag('event', 'email_click', {
+                'event_category': 'engagement',
+                'event_label': 'Direct Email'
+            });
+            //console.log('Email button click tracked');
+        });
+    }
 }
+
+// Add this to your document ready function
+document.addEventListener('DOMContentLoaded', function() {
+    // Your existing initialization code
+    
+    // Setup analytics tracking
+    setupAnalyticsTracking();
+    
+    // Send a pageview event to make sure tracking is working
+    if (typeof gtag === 'function') {
+        gtag('event', 'page_view');
+        //console.log('Initial pageview event sent');
+    }
+});
