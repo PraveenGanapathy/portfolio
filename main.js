@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     loadAllData();
     const particles = initParticles();
 
+    // Initialize analytics tracking
+    setupAnalyticsTracking();
+
     // 2. Setup UI components
     setupSectionAnimations();
     setupSmoothScrolling();
@@ -45,6 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 7. Initialize favicon animation
     setTimeout(initFaviconAnimation, 1000);
+
+    // Track performance
+    trackPagePerformance();
 });
 
 // Consolidated timeline enhancement function
@@ -1676,4 +1682,117 @@ document.addEventListener('DOMContentLoaded', function () {
 function isValidEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email.toLowerCase());
+}
+
+// Lazy load images to improve page speed
+document.addEventListener('DOMContentLoaded', function () {
+    // Find all images that should be lazy loaded
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    
+    // Create an intersection observer
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    // Observe each image
+    lazyImages.forEach(img => {
+        imageObserver.observe(img);
+    });
+});
+
+// Analytics event tracking
+function setupAnalyticsTracking() {
+    // Skip if gtag isn't available
+    if (typeof gtag !== 'function') return;
+    
+    // Track resume form submissions
+    const resumeForm = document.getElementById('resumeRequestForm');
+    if (resumeForm) {
+        resumeForm.addEventListener('submit', function() {
+            gtag('event', 'resume_request', {
+                'event_category': 'engagement',
+                'event_label': 'Resume Download'
+            });
+        });
+    }
+    
+    // Track project clicks
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const projectTitle = this.querySelector('.project-title').textContent;
+            gtag('event', 'view_project', {
+                'event_category': 'engagement',
+                'event_label': projectTitle
+            });
+        });
+    });
+    
+    // Track social media clicks
+    document.querySelectorAll('.social-link').forEach(link => {
+        link.addEventListener('click', function() {
+            const platform = this.getAttribute('data-platform');
+            gtag('event', 'social_click', {
+                'event_category': 'outbound',
+                'event_label': platform
+            });
+        });
+    });
+    
+    // Track section visibility
+    setupSectionVisibilityTracking();
+}
+
+// Track when sections become visible
+function setupSectionVisibilityTracking() {
+    // Skip if IntersectionObserver or gtag isn't available
+    if (!('IntersectionObserver' in window) || typeof gtag !== 'function') return;
+    
+    const sections = document.querySelectorAll('section[id]');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.getAttribute('id');
+                gtag('event', 'section_view', {
+                    'event_category': 'engagement',
+                    'event_label': sectionId
+                });
+                // Only track each section once
+                sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 }); // Trigger when 30% of section is visible
+    
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+}
+
+// Track page load performance
+function trackPagePerformance() {
+    // Skip if gtag or performance timing isn't available
+    if (typeof gtag !== 'function' || !window.performance) return;
+    
+    // Wait for everything to load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const perfData = window.performance.timing;
+            const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+            const domReadyTime = perfData.domComplete - perfData.domLoading;
+            
+            // Send performance data to GA
+            gtag('event', 'performance', {
+                'event_category': 'timing',
+                'event_label': 'page_load',
+                'value': Math.round(pageLoadTime),
+                'dom_ready': Math.round(domReadyTime)
+            });
+        }, 0);
+    });
 }
