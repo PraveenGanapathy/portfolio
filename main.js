@@ -1791,3 +1791,20 @@ document.addEventListener('DOMContentLoaded', function() {
         //console.log('Initial pageview event sent');
     }
 });
+
+// Profile badge popup functionality
+document.addEventListener("DOMContentLoaded", function() {
+    const profileLink = document.querySelector(".profile-icon-link");
+    if (profileLink) {
+        profileLink.addEventListener("mouseenter", function() {
+            const popup = this.querySelector(".badge-popup");
+            popup.style.opacity = "1";
+            popup.style.transform = "translateX(0)";
+        });
+        profileLink.addEventListener("mouseleave", function() {
+            const popup = this.querySelector(".badge-popup");
+            popup.style.opacity = "0";
+            popup.style.transform = "translateX(10px)";
+        });
+    }
+});

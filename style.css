@@ -2061,6 +2061,7 @@ display: none;
     max-width: 600px;
     margin: 0 auto 2rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
 }
 
 .resume-request-form h4 {
@@ -2102,4 +2103,180 @@ display: none;
     background-color: rgba(220, 53, 69, 0.2);
     border-color: rgba(220, 53, 69, 0.5);
     color: #f8d7da;
+}
+
+/* Custom LinkedIn Badge Styling - Dark Theme - Updated Layout */
+.linkedin-badge-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 600px; /* Match resume request form width */
+    width: 100%;
+}
+
+.custom-linkedin-badge {
+    width: 100%;
+    max-width: 100%;
+    background-color: #212529;
+    border-radius: 8px;
+    overflow: visible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    position: relative;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* LinkedIn Header */
+.custom-linkedin-badge .badge-header {
+    background-color: #212529; /* Match your UI dark color */
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.custom-linkedin-badge .badge-logo {
+    height: 20px;
+    width: auto;
+    fill: #0a66c2;
+}
+
+/* Left-aligned profile section with flex layout */
+.custom-linkedin-badge .badge-profile {
+    background-color: #212529; /* Slightly darker than UI background */
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.custom-linkedin-badge .badge-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    object-fit: cover;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.custom-linkedin-badge .profile-info {
+    flex-grow: 1;
+}
+
+.custom-linkedin-badge .badge-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    font-family: Arial, sans-serif;
+}
+
+.custom-linkedin-badge .badge-name a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.custom-linkedin-badge .badge-title {
+    font-size: 12px;
+    color: #ccc;
+    margin: 0 0 5px 0;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Highlight special terms */
+.custom-linkedin-badge .highlight-text {
+    color: #0A66C2;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.custom-linkedin-badge .highlight-text:hover {
+    text-decoration: underline;
+}
+
+.custom-linkedin-badge .graduate-text {
+    color: #aaa;
+    font-weight: 500;
+}
+
+.custom-linkedin-badge .badge-school {
+    font-size: 12px;
+    color: #aaa;
+    margin: 5px 0 0 0;
+    font-weight: 400;
+    font-family: Arial, sans-serif;
+}
+
+.custom-linkedin-badge .badge-school a {
+    text-decoration: none;
+    color: #aaa;
+}
+
+/* Button layouts */
+.custom-linkedin-badge .badge-actions {
+    padding: 15px;
+}
+
+.custom-linkedin-badge .badge-buttons-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.custom-linkedin-badge .badge-action-btn {
+    border-radius: 24px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 10px;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    white-space: nowrap;
+}
+
+.custom-linkedin-badge .primary-action {
+    background-color: #0A66C2;
+    color: white;
+    border: 1px solid #0A66C2;
+}
+
+.custom-linkedin-badge .primary-action:hover {
+    background-color: #004182;
+}
+
+.custom-linkedin-badge .secondary-action {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.custom-linkedin-badge .secondary-action:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.custom-linkedin-badge .github-action {
+    background-color: #24292e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.custom-linkedin-badge .github-action:hover {
+    background-color: #2c3338;
+}
+
+/* Make responsive - stack on very small screens */
+@media (max-width: 420px) {
+    .custom-linkedin-badge .badge-buttons-row {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

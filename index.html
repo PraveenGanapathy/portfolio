@@ -287,15 +287,59 @@
                         </div>
                     </div>
 
-                    <!-- Direct Email Button -->
-                    <a href="mailto:praveen.ravi@umassd.edu" class="btn btn-outline-primary email-btn mb-4">
-                        <i class="fas fa-envelope me-2"></i>Send Email Directly
-                    </a>
 
-                    <!-- Social Icons Grid -->
-                    <div class="social-grid mt-4" id="social-icons-container">
-                        <!-- Social icons will be dynamically inserted here -->
+                    <!-- Custom LinkedIn-Style Badge -->
+                    <div class="linkedin-badge-container my-4">
+                        <div class="custom-linkedin-badge dark-theme">
+                            <!-- LinkedIn Header -->
+                            <div class="badge-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="badge-logo">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                            </div>
+
+                            <!-- Profile Picture & Info - Now Left-Aligned -->
+                            <div class="badge-profile">
+                                <img src="https://avatars.githubusercontent.com/praveenganapathy"
+                                    alt="Praveen Ganapathy Ravi" class="badge-avatar">
+                                <div class="profile-info">
+                                    <h3 class="badge-name">
+                                        <a href="https://www.linkedin.com/in/pravi01" target="_blank">
+                                            Praveen Ganapathy Ravi
+                                        </a>
+                                    </h3>
+                                    <h4 class="badge-title">
+                                        <span class="graduate-text">MS Data Science Graduate</span> @
+                                        <a href="https://www.umassd.edu/" class="highlight-text" target="_blank">UMass
+                                            Dartmouth</a> |
+                                        Data Engineer | Software Developer |
+                                        <a href="https://www.infosys.com/" class="highlight-text"
+                                            target="_blank">Ex-Infosys</a>
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons - Horizontal Layout -->
+                            <div class="badge-actions">
+                                <div class="badge-buttons-row">
+                                    <a href="https://www.linkedin.com/in/pravi01"
+                                        class="badge-action-btn primary-action" target="_blank">
+                                        <i class="fab fa-linkedin me-1"></i> Profile
+                                    </a>
+                                    <a href="mailto:pravi1@umassd.edu" class="badge-action-btn secondary-action">
+                                        <i class="fas fa-envelope me-1"></i>Email
+                                    </a>
+                                    <a href="https://github.com/praveenganapathy" class="badge-action-btn github-action"
+                                        target="_blank">
+                                        <i class="fab fa-github me-1"></i>GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -409,20 +453,42 @@
 
     <!-- Direct analytics enablement without consent banner -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Always enable analytics
             window['ga-disable-G-T0VG76GE8V'] = false;
-            
+
             // Send a pageview event to verify tracking is working
             if (typeof gtag === 'function') {
                 gtag('event', 'page_view');
                 //console.log('Analytics enabled automatically');
-                
+
                 // Force debug mode for testing
                 gtag('config', 'G-T0VG76GE8V', { 'debug_mode': true });
-                
+
             } else {
                 console.error('Google Analytics not loaded properly');
+            }
+        });
+    </script>
+
+    <!-- LinkedIn Badge Script -->
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+
+    <!-- Custom LinkedIn Badge Interaction Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileLink = document.querySelector(".profile-icon-link");
+            if (profileLink) {
+                profileLink.addEventListener("mouseenter", function () {
+                    const popup = this.querySelector(".badge-popup");
+                    popup.style.opacity = "1";
+                    popup.style.transform = "translateX(0)";
+                });
+                profileLink.addEventListener("mouseleave", function () {
+                    const popup = this.querySelector(".badge-popup");
+                    popup.style.opacity = "0";
+                    popup.style.transform = "translateX(10px)";
+                });
             }
         });
     </script>
