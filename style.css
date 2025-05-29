@@ -2278,5 +2278,6 @@ display: none;
     .custom-linkedin-badge .badge-buttons-row {
         flex-direction: column;
         gap: 10px;
+        
     }
 }
