@@ -193,7 +193,7 @@ const portfolioData = {
       ]
     },
     {
-      title: "Data Engineer, Backend Developer",
+      title: "Data Engineer, Senior Backend Developer",
       company: "Infosys Limited",
       period: "Jun 2021 – Jan 2024",
       location: "Chennai, India",
