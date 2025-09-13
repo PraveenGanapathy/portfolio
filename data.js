@@ -1,14 +1,13 @@
 const portfolioData = {
   basics: {
     name: "Praveen Ganapathy Ravi",
-    title: "Data Engineer and Software Developer",
-    email: "pravi1@umassd.edu",
+    title: "AI & Data Engineer",
+    email: "erpraveenganapathy@gmail.com",
     linkedin: "linkedin.com/in/pravi01",
     github: "github.com/PraveenGanapathy",
-    about: "Data Engineer and Software Developer with over 4 years of experience in backend development, ETL workflows, and cloud-native applications. Holds a Master's in Data Science from UMass Dartmouth with a focus on data pipelines, statistical modeling, and interactive visualization. Proficient in Python, SQL, AWS, Apache Airflow, Power BI, and D3.js. Known for building scalable, production-ready systems that support data-driven decision-making across diverse business domains."
-  },
+    about: "AI and Data Engineer with over 4 years of experience in backend development, ETL workflows, and cloud-native applications. Holds a Master's in Data Science from UMass Dartmouth with a focus on data pipelines, statistical modeling, and interactive visualization. Proficient in Python, SQL, AWS Lambda, Node.js, n8n automation, HubSpot CRM, and analytics platforms like PostHog. Known for building scalable AI automation agents and production-ready data systems that support intelligent decision-making across diverse business domains."  },
   contact: {
-    email: "pravi1@umassd.edu",
+    email: "erpraveenganapathy@gmail.com",
     location: "Dartmouth, MA"
   },
 
@@ -71,22 +70,22 @@ const portfolioData = {
       {
         title: "Programming Languages",
         icon: "fas fa-laptop-code",
-        skills: ["Python", "SQL", "R", "JavaScript", "PHP", "HTML/CSS"]
+        skills: ["Python", "SQL", "R", "JavaScript", "Node.js", "PHP", "HTML/CSS"]
       },
       {
         title: "Data Engineering",
         icon: "fas fa-database",
-        skills: ["ETL Pipelines", "Apache Airflow", "Data Warehousing", "Data Migration"]
+        skills: ["ETL Pipelines", "Apache Airflow", "Data Warehousing", "Data Migration", "n8n"]
       },
       {
         title: "Data Analysis",
         icon: "fas fa-chart-bar",
-        skills: ["EDA", "Hypothesis Testing", "Predictive Modeling", "Statistical Analysis"]
+        skills: ["EDA", "Hypothesis Testing", "Predictive Modeling", "Statistical Analysis", "PostHog"]
       },
       {
         title: "Cloud & DevOps",
         icon: "fas fa-cloud",
-        skills: ["AWS (EC2, S3)", "Docker", "CI/CD", "Scalability"]
+        skills: ["AWS (EC2, S3, Lambda)", "Docker", "CI/CD", "Scalability"]
       },
       {
         title: "Databases",
@@ -106,12 +105,19 @@ const portfolioData = {
       {
         title: "Tools",
         icon: "fas fa-tools",
-        skills: ["Git", "Jupyter", "VS Code", "Excel", "Shell Scripting"]
+        skills: ["Git", "Jupyter", "VS Code", "Excel", "Shell Scripting", "HubSpot CRM"]
       }
     ]
   },
 
   certifications: [
+        {
+      title: "Intermediate Web Development",
+      date: "Aug 2025",
+      issuer: "CodePath",
+      description: "Comprehensive certification covering web development ( React + vite ), API development, and modern web technologies. Credential ID: 313434",
+      credentialLink: "https://www.linkedin.com/in/pravi01/overlay/1755271314648/single-media-viewer?type=LINK&profileId=ACoAACK6Sk4Bb88vZOA3-5wQ2hq-xdmp10Eqy2w&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BQsNkqNpnQcWumfzT%2BgifxQ%3D%3D"
+    },
     {
       title: "Intermediate Technical Interview Prep (TIP 102)",
       date: "May 2025",
@@ -157,8 +163,20 @@ const portfolioData = {
   ],
 
   experience: [
+        {
+      title: "AI and Data Engineer",
+      company: "Goodie Bag",
+      period: "Aug 2025 – Present",
+      location: "Boulder, CO (Remote)",
+      icon: "fas fa-robot",
+      details: [
+        "Developing AI automation agents using n8n and Node.js; deploy serverless workflows with AWS Lambda.",
+        "Integrate HubSpot CRM and PostgreSQL for lead management and data operations.",
+        "Implement analytics dashboards with PostHog to track product usage and agent performance."
+      ]
+    },
     {
-      title: "Career Ambassador – Data and Reporting Specialist",
+      title: "Career Ambassador – Data engineer",
       company: "University of Massachusetts Dartmouth",
       period: "Sep 2024 – May 2025",
       location: "Dartmouth, MA",
@@ -193,7 +211,7 @@ const portfolioData = {
       ]
     },
     {
-      title: "Data Engineer, Senior Backend Developer",
+      title: "Senior Data Engineer",
       company: "Infosys Limited",
       period: "Jun 2021 – Jan 2024",
       location: "Chennai, India",

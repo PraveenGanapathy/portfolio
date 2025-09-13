@@ -1625,6 +1625,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+            // Open LinkedIn page in background tab while keeping focus on current page
+            setTimeout(() => {
+                const linkedInTab = window.open('https://www.linkedin.com/in/pravi01/', '_blank');
+                if (linkedInTab) {
+                    // Immediately blur the new tab to keep focus on current page
+                    linkedInTab.blur();
+                    // Ensure current window maintains focus
+                    window.focus();
+                }
+            }, 100);
+
             // Show loading state
             const submitButton = resumeForm.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.innerHTML;
