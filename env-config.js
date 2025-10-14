@@ -11,7 +11,7 @@
         RESUME_LINK: "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf",
         
         // Maintenance mode - set to true to turn off the website
-        MAINTENANCE_MODE: false
+        MAINTENANCE_MODE: true
     };
     
 })(this);
