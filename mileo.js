@@ -166,7 +166,8 @@
     btn.disabled = true; status.textContent = "Mileo is running…";
     const tasks = [];
     if (B.enabled) tasks.push(B.insert("notes", { message, reply_to: replyTo || null }));
-    if (window.emailjs && env.EMAILJS_NOTE_TEMPLATE_ID) {
+    // Only the real site emails Praveen; the local preview never sends real mail.
+    if (B.live && window.emailjs && env.EMAILJS_NOTE_TEMPLATE_ID) {
       tasks.push(window.emailjs.send(env.EMAILJS_SERVICE_ID, env.EMAILJS_NOTE_TEMPLATE_ID, {
         message, reply_to: replyTo || "(no email left)", region: B.region, from_name: "Mileo",
       }));

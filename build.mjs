@@ -24,7 +24,7 @@ const cards = d.projects.map((p, i) => `
               <span class="card-year nums">${yearOf(p.period)}</span>
             </div>
             <div class="card-media">
-              <video src="${esc(p.image)}.mp4" poster="${esc(p.image)}.jpg" muted loop playsinline preload="none" aria-label="Screen recording of ${esc(p.title)}"></video>
+              <video src="${esc(p.image)}.mp4" ${i < 2 ? "poster" : "data-poster"}="${esc(p.image)}.jpg" muted loop playsinline preload="none" aria-label="Screen recording of ${esc(p.title)}"></video>
             </div>
             <p class="card-kind">${esc(p.kind)}${/Hackathon Winner/.test(p.title) ? " · first place, Jia.Seed hackathon" : ""}</p>
             <p class="card-brief">${esc(p.brief)}</p>
@@ -109,6 +109,7 @@ const html = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>html{background:#03060d;color:#eef4ff}</style>
   <title>Praveen Ganapathy Ravi, Data Engineer</title>
   <meta name="description" content="${esc(page.heroSentence)} Portfolio of work, projects and certifications.">
   <meta name="author" content="${esc(basics.name)}">
@@ -125,9 +126,11 @@ const html = `<!doctype html>
   <script src="env-config.js"></script>
   <script src="maintenance.js"></script>
   <script>document.documentElement.classList.add('js')</script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-T0VG76GE8V');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-T0VG76GE8V';document.head.appendChild(s)},1500)});</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap"></noscript>
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
@@ -139,10 +142,18 @@ const html = `<!doctype html>
     alumniOf: d.education.map((e) => ({ "@type": "CollegeOrUniversity", name: e.institution })),
     sameAs: [`https://${basics.github}`, `https://${basics.linkedin}`],
   })}</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0VG76GE8V"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-T0VG76GE8V');</script>
 </head>
 <body>
+  <div class="boot" id="boot" hidden>
+    <style>.boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:#03060d radial-gradient(60% 50% at 50% 40%,rgba(10,132,255,.35),transparent 70%);color:#eef4ff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;transition:opacity .45s ease}.boot[hidden]{display:none}.boot.is-done{opacity:0;pointer-events:none}.boot-dog{width:132px;height:132px;border-radius:50%;background:#fff4e2;border:4px solid #fff;display:grid;place-items:center;margin:0 auto 18px;padding:0;cursor:pointer;animation:boot-bob 1.2s ease-in-out infinite alternate}.boot-dog svg{width:84%;height:auto}.boot-dog.is-hop{animation:boot-hop .6s cubic-bezier(.34,1.56,.64,1)}.boot p{margin:6px 0}.boot-title{font-size:20px;font-weight:700}.boot-sub{font-size:15px;color:#a7b6cf;min-height:1.4em}.boot-bar{width:180px;height:4px;border-radius:4px;background:rgba(255,255,255,.12);margin:18px auto 0;overflow:hidden}.boot-bar span{display:block;height:100%;width:40%;background:#6fd3ff;border-radius:4px;animation:boot-load 1.2s ease-in-out infinite}@keyframes boot-bob{to{transform:translateY(-8px)}}@keyframes boot-hop{40%{transform:translateY(-26px) rotate(-8deg)}}@keyframes boot-load{from{transform:translateX(-100%)}to{transform:translateX(260%)}}@media (prefers-reduced-motion:reduce){.boot-dog,.boot-bar span{animation:none}}</style>
+    <div>
+      <button class="boot-dog" type="button" aria-label="Pet Mileo while the page loads">${dog()}</button>
+      <p class="boot-title">Mileo is fetching the page…</p>
+      <p class="boot-sub" id="boot-line" aria-live="polite">Tap him while you wait 🐾</p>
+      <div class="boot-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+  <script>(function(){var b=document.getElementById('boot'),d=b.querySelector('.boot-dog'),line=document.getElementById('boot-line'),done=false,pets=0,lines=['Woof! Almost there…','Good human. 🐶','Fetching… fetching…','*tail wagging intensifies*','One more pat? 💙'];var t=setTimeout(function(){if(!done)b.hidden=false},Math.max(0,1200-performance.now()));d.addEventListener('click',function(){pets++;d.classList.remove('is-hop');void d.offsetWidth;d.classList.add('is-hop');line.textContent=lines[pets%lines.length]+'  ×'+pets});function finish(){if(done)return;done=true;clearTimeout(t);if(b.hidden){b.remove();return}b.classList.add('is-done');setTimeout(function(){b.remove()},500)}addEventListener('load',finish);setTimeout(finish,10000)})();</script>
   <!-- generated by build.mjs from data.js; edit data.js, then run: node build.mjs -->
   <canvas class="liquid" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
@@ -333,12 +344,12 @@ const html = `<!doctype html>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
-  <script src="backend.js"></script>
-  <script src="liquid.js"></script>
-  <script src="main.js"></script>
-  <script src="insights.js"></script>
-  <script src="mileo.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+  <script defer src="backend.js"></script>
+  <script defer src="liquid.js"></script>
+  <script defer src="main.js"></script>
+  <script defer src="insights.js"></script>
+  <script defer src="mileo.js"></script>
 </body>
 </html>
 `;

@@ -52,7 +52,8 @@ void main(){
   const uRes = u("res"), uT = u("t"), uE = u("energy"), uM = u("mouse");
 
   // Render at reduced resolution: the field is soft, so this costs nothing visible.
-  const scale = innerWidth < 768 ? 0.35 : 0.5;
+  const lowEnd = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+  const scale = innerWidth < 768 || lowEnd ? 0.3 : 0.5;
   const resize = () => {
     canvas.width = Math.max(1, Math.round(innerWidth * scale));
     canvas.height = Math.max(1, Math.round(innerHeight * scale));
@@ -77,7 +78,7 @@ void main(){
   addEventListener("pointermove", (e) => { mx = e.clientX / innerWidth; my = 1 - e.clientY / innerHeight; }, { passive: true });
 
   const start = performance.now();
-  const minFrame = innerWidth < 768 ? 1000 / 30 : 0;
+  const minFrame = innerWidth < 768 || lowEnd ? 1000 / 30 : 0;
   let last = 0, raf = 0;
   const frame = (now) => {
     raf = requestAnimationFrame(frame);
@@ -96,7 +97,13 @@ void main(){
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     return;
   }
-  raf = requestAnimationFrame(frame);
+  // One still frame now (cheap), then the flow starts after the page has painted and settled.
+  gl.uniform1f(uT, 0); gl.uniform1f(uE, energy); gl.uniform2f(uM, 0.5, 0.5);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  // Start after the page has painted and settled, so the liquid never delays the first view.
+  const start2 = () => { raf = requestAnimationFrame(frame); };
+  if (document.readyState === "complete") (window.requestIdleCallback || setTimeout)(start2, { timeout: 600 });
+  else addEventListener("load", () => (window.requestIdleCallback || setTimeout)(start2, { timeout: 600 }));
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) cancelAnimationFrame(raf);
     else raf = requestAnimationFrame(frame);

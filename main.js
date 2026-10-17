@@ -9,6 +9,19 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
 // Chromium can refract the backdrop through an SVG filter; elsewhere the lens falls back to blur.
 if (window.chrome && CSS.supports("backdrop-filter", "url(#glass-lens)")) document.documentElement.classList.add("svg-glass");
 
+// Hide the name in the header once the page scrolls; the section links stay.
+(() => {
+  let on = false;
+  const update = () => { const s = scrollY > 40; if (s !== on) { on = s; document.documentElement.classList.toggle("is-scrolled", s); } };
+  addEventListener("scroll", update, { passive: true });
+  update();
+})();
+
+// Project posters past the first two load after the page, so they never slow the first view.
+addEventListener("load", () => {
+  document.querySelectorAll("video[data-poster]").forEach((v) => { v.poster = v.dataset.poster; v.removeAttribute("data-poster"); });
+});
+
 // Reveal each block once as it enters the viewport.
 (() => {
   const targets = document.querySelectorAll("[data-reveal]");
@@ -151,6 +164,10 @@ if (window.chrome && CSS.supports("backdrop-filter", "url(#glass-lens)")) docume
     if (!input.checkValidity() || !email) {
       status.textContent = "That email address does not look right. Please check it.";
       input.focus();
+      return;
+    }
+    if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && !new URLSearchParams(location.search).has("live")) {
+      status.textContent = "Preview: no email sent. On the live site this sends the résumé link.";
       return;
     }
     if (!window.emailjs) {

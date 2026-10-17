@@ -75,5 +75,5 @@ window.Backend = (() => {
     return `${Math.round(s / 86400)} d ago`;
   };
 
-  return { enabled, region, source, visitor, insert, rpc, visitLogged, ago, store };
+  return { enabled, live, region, source, visitor, insert, rpc, visitLogged, ago, store };
 })();
