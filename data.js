@@ -9,21 +9,14 @@ const portfolioData = {
   },
   // Copy for the page's set pieces. Run `node build.mjs` after editing this file.
   page: {
-    heroLines: ["Praveen", "Ganapathy"],
+    hero: { top: "Data", accent: "pipeline", bottom: "engineer" },
     heroSentence: "Data engineer at the World Bank Group, building the pipelines behind its new budget planning systems.",
-    stat: {
-      claim: "Budget data, on time, every day",
-      figure: "20",
-      unit: "+",
-      caption: "Azure Data Factory pipelines I designed and built at the World Bank Group, each run on one of 20+ daily triggers.",
-      source: "World Bank Group, since Feb 2026"
-    },
-    flow: {
-      heading: "In one end, out the other",
-      text: "Each morning, finance, budget and HR records leave SAP's FI, CO and HR modules, are shaped into Budget, CapEx, Commitment Item, Fund Center and Exchange Rate tables, and land curated in Azure Data Lake Storage, where Jedox picks them up for planning.",
-      from: { label: "From", word: "SAP" },
-      to: { label: "To", word: "ADLS" }
-    },
+    heroInfo: [
+      ["Azure · SAP · Python", "Data pipelines"],
+      ["Currently at", "World Bank Group"],
+      ["Based in", "Washington, DC"]
+    ],
+    intro: { before: "I'm Praveen. I build", accent: "reliable", after: "pipelines for the World Bank's budget data." },
     facts: [
       { label: "Based in", value: "Washington, DC" },
       { label: "Working since", value: "2020" },

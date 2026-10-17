@@ -17,7 +17,8 @@ and commit `data.js` together with the regenerated `index.html`. No dependencies
 | `data.js` | Content: jobs, projects, education, certifications, and the page copy under `page` |
 | `build.mjs` | Writes `index.html` from `data.js` |
 | `style.css` | All styles |
-| `main.js` | Project preview, project filter, résumé-by-email form (EmailJS) |
+| `main.js` | Glass lens, project card deck, résumé-by-email form (EmailJS) |
+| `liquid.js` | The animated azure liquid background (WebGL) |
 | `env-config.js` | EmailJS IDs, résumé link, and `MAINTENANCE_MODE` (see `MAINTENANCE.md`) |
 | `images/projects/` | Screen recordings of each project (`.mp4`) with poster frames (`.jpg`) |
 | `assets/` | Place photographs and their licences (`credits.json`) |
