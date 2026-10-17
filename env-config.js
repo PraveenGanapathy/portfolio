@@ -5,7 +5,7 @@
     window.ENV = {
         EMAILJS_SERVICE_ID: "service_o5jyuif",
         EMAILJS_TEMPLATE_ID: "template_rer0jo8",
-        EMAILJS_USER_ID: "oi1LRLkeOCZezCLSp",
+        EMAILJS_USER_ID: "S4dn7cvUDGyWOB_-l",
         
         // Resume link
         RESUME_LINK: "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf",
