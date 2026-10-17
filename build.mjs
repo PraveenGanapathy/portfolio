@@ -11,6 +11,7 @@ const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<"
 const breakable = (s) => esc(s).replace(/([@/])/g, "$1<wbr>");
 const yearOf = (period) => (period.match(/\d{4}/g) || []).pop() || "";
 const shortPeriod = (p) => p.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w* /g, "$1 ").replace("Present", "now");
+const count = (n) => ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"][n] || String(n);
 const ext = (href, text, cls = "link") => `<a class="${cls}" href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>`;
 const RESUME = "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf";
 const ARROW = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -183,7 +184,7 @@ const html = `<!doctype html>
     <section class="showcase" id="projects" aria-labelledby="intro-text" data-energy="1">
       <div class="intro">
         <p id="intro-text" class="statement" data-reveal>${esc(page.intro.before)} <em>${esc(page.intro.accent)}</em> ${esc(page.intro.after)}</p>
-        <p class="intro-sub" data-reveal style="--d:1">Seven things I have built, from deep learning to data pipelines. Swipe or use the arrows.</p>
+        <p class="intro-sub" data-reveal style="--d:1">${count(d.projects.length)} things I have built, from deep learning to data pipelines. Swipe or use the arrows.</p>
         <div class="deck-controls" data-reveal style="--d:2">
           <button class="round glass" type="button" data-dir="-1" aria-label="Previous project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <button class="round glass" type="button" data-dir="1" aria-label="Next project">${ARROW}</button>

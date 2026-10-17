@@ -18,6 +18,7 @@ and commit `data.js` together with the regenerated `index.html`. No dependencies
 | `build.mjs` | Writes `index.html` from `data.js` |
 | `style.css` | All styles |
 | `main.js` | Glass lens, project card deck, résumé-by-email form (EmailJS) |
+| `tools/preview.mjs` | Local preview with live reload: `node tools/preview.mjs` |
 | `liquid.js` | The animated azure liquid background (WebGL) |
 | `backend.js` | Supabase client: logs a visit, approximate region, traffic source |
 | `insights.js` | The "Who's visiting" stats and chart |

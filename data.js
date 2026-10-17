@@ -205,7 +205,7 @@ const portfolioData = {
     {
       title: "AI and Data Engineer",
       company: "Goodie Bag",
-      period: "Aug 2025 – Present",
+      period: "Aug 2025 – Dec 2025",
       location: "Boulder, CO (Remote)",
       icon: "fas fa-robot",
       details: [
