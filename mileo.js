@@ -29,7 +29,8 @@
     refresh();
     $(".mileo-close").focus();
     B.store.set("pgr-mileo-met", "1");
-    launcher.classList.remove("has-bubble");
+    launcher.classList.remove("has-bubble", "is-new");
+    opened = true;
   };
   const close = () => {
     panel.classList.remove("is-open");
@@ -42,8 +43,30 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
   document.addEventListener("click", (e) => { if (!panel.hidden && !panel.contains(e.target) && !launcher.contains(e.target)) close(); });
   // Say hello once, a little after the page settles.
-  if (!B.store.get("pgr-mileo-met")) setTimeout(() => { if (panel.hidden) launcher.classList.add("has-bubble"); }, 6000);
-  launcher.addEventListener("mouseenter", () => launcher.classList.remove("has-bubble"));
+  // Getting attention: a "1" badge until first met, a hop now and then, and rotating speech bubbles.
+  let opened = false;
+  if (!B.store.get("pgr-mileo-met")) launcher.classList.add("is-new");
+  const bubble = launcher.querySelector(".mileo-bubble");
+  const TEASERS = ["Woof! I'm Mileo 👋", "Psst… I'm hungry 🦴", "Want to leave Praveen a note?", "Cuddles? I give great cuddles 🐶", "Shy? Tell me instead, no email needed 🐾"];
+  let teaser = 0, bubbleTimer;
+  const pop = (text, ms = 5000) => {
+    if (opened || !panel.hidden) return;
+    bubble.textContent = text;
+    launcher.classList.add("has-bubble");
+    clearTimeout(bubbleTimer);
+    bubbleTimer = setTimeout(() => launcher.classList.remove("has-bubble"), ms);
+  };
+  setTimeout(() => pop(TEASERS[teaser++]), 3500);
+  setInterval(() => { if (!document.hidden) pop(TEASERS[teaser++ % TEASERS.length]); }, 22000);
+  if (!reduce) setInterval(() => {
+    if (opened || document.hidden) return;
+    launcher.classList.remove("is-hopping"); void launcher.offsetWidth; launcher.classList.add("is-hopping");
+  }, 9000);
+  launcher.addEventListener("mouseenter", () => pop("Click me! 🐶", 2500));
+  const contact = document.getElementById("contact");
+  if (contact && "IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) pop("Shy? Tell me instead, no email needed 🐾", 6000); }, { threshold: 0.3 }).observe(contact);
+  }
   document.querySelectorAll("[data-open-mileo]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); if (panel.hidden) open(); showTab("note"); }));
 
   // ---------- mood and speech ----------

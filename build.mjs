@@ -284,8 +284,10 @@ const html = `<!doctype html>
     <p class="wordmark" aria-hidden="true">${esc(basics.name.split(" ")[0])}</p>
   </footer>
 
-  <button class="mileo-launch glass" type="button" aria-controls="mileo" aria-expanded="false" aria-label="Talk to Mileo, Praveen's dog-bot">
-    ${dog()}
+  <button class="mileo-launch" type="button" aria-controls="mileo" aria-expanded="false" aria-label="Talk to Mileo, Praveen's dog-bot: feed him, cuddle him or leave Praveen a note">
+    <span class="mileo-avatar">${dog()}</span>
+    <span class="mileo-label"><strong>Mileo</strong><span>Feed me · leave a note</span></span>
+    <span class="mileo-badge" aria-hidden="true">1</span>
     <span class="mileo-bubble" aria-hidden="true">Woof! I'm Mileo 👋</span>
   </button>
   <div class="mileo glass" id="mileo" role="dialog" aria-labelledby="mileo-title" hidden>
