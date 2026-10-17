@@ -1,0 +1,41 @@
+name: Maintenance mode
+
+# Actions tab → "Maintenance mode" → Run workflow → pick on or off.
+# Also works from the GitHub mobile app, or: gh workflow run maintenance.yml -f mode=on
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Maintenance mode"
+        type: choice
+        options: ["on", "off"]
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  toggle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set MAINTENANCE_MODE
+        run: |
+          value=${{ inputs.mode == 'on' && 'true' || 'false' }}
+          sed -i -E "s/MAINTENANCE_MODE: (true|false)/MAINTENANCE_MODE: $value/" env-config.js
+          grep -n "MAINTENANCE_MODE" env-config.js
+
+      - name: Commit and push
+        run: |
+          if git diff --quiet; then
+            echo "Maintenance mode is already ${{ inputs.mode }}; nothing to change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Maintenance mode ${{ inputs.mode }}"
+          git push
+          echo "### Maintenance mode is now ${{ inputs.mode }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "GitHub Pages will update in about a minute." >> "$GITHUB_STEP_SUMMARY"

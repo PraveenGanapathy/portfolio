@@ -19,9 +19,33 @@ and commit `data.js` together with the regenerated `index.html`. No dependencies
 | `style.css` | All styles |
 | `main.js` | Glass lens, project card deck, résumé-by-email form (EmailJS) |
 | `liquid.js` | The animated azure liquid background (WebGL) |
+| `backend.js` | Supabase client: logs a visit, approximate region, traffic source |
+| `insights.js` | The "Who's visiting" stats and chart |
+| `mileo.js` | Mileo the dog-bot: feed, cuddle, leave a note |
+| `supabase/schema.sql` | Database tables, security rules and summary functions |
 | `env-config.js` | EmailJS IDs, résumé link, and `MAINTENANCE_MODE` (see `MAINTENANCE.md`) |
 | `images/projects/` | Screen recordings of each project (`.mp4`) with poster frames (`.jpg`) |
 | `assets/` | Place photographs and their licences (`credits.json`) |
+
+## Maintenance mode
+
+GitHub → this repo → **Actions** → **Maintenance mode** → **Run workflow** → choose `on` or `off`.
+It also works from the GitHub mobile app, or from a terminal: `gh workflow run maintenance.yml -f mode=on`.
+The site switches about a minute later.
+
+## Visitor stats and Mileo (Supabase)
+
+1. Create a free project at https://supabase.com.
+2. In the project: **SQL Editor** → New query → paste `supabase/schema.sql` → **Run**.
+3. **Project Settings → API**: copy the Project URL and the `anon` public key into `SUPABASE_URL` and
+   `SUPABASE_ANON_KEY` in `env-config.js`. The anon key is meant to be public: visitors can only add
+   visits, feeds, cuddles and notes, and can only read totals.
+4. Read notes in Supabase: **Table Editor → notes**.
+
+To also get each note by email, create an EmailJS template that sends to you, using the variables
+`{{message}}`, `{{reply_to}}` and `{{region}}`, and put its ID in `EMAILJS_NOTE_TEMPLATE_ID`.
+
+Regions come from the visitor's browser time zone; no IP addresses are stored.
 
 ## Photo credits
 

@@ -357,6 +357,30 @@
       </div>
     </section>
 
+    <section class="visitors" id="visitors" aria-labelledby="visitors-head" data-energy="0.55" hidden>
+      <h2 id="visitors-head" class="section-title big">Who's <em>visiting</em></h2>
+      <div class="v-grid">
+        <div class="glass v-card v-main">
+          <p class="v-total nums">0</p>
+          <p class="v-unique muted"></p>
+          <h3 class="group-label">Visits, last 30 days</h3>
+          <div class="v-chart-wrap">
+            <div class="v-tip" role="status" hidden></div>
+            <div class="v-chart" role="group" aria-label="Daily visits, last 30 days"></div>
+            <div class="v-axis"></div>
+          </div>
+          <p class="v-peak muted"></p>
+        </div>
+        <div class="glass v-card">
+          <h3 class="group-label">Where from</h3>
+          <ol class="v-list v-regions"></ol>
+          <h3 class="group-label spaced">How they found me</h3>
+          <ol class="v-list v-sources"></ol>
+          <p class="v-note muted">Regions are approximate, from browser time zones. No IP addresses or personal details are stored.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="contact" id="contact" aria-labelledby="contact-head" data-energy="0.8">
       <h2 id="contact-head" class="section-title big" data-reveal>Let's <em>talk</em></h2>
       <a class="contact-mail" href="mailto:erpraveenganapathy@gmail.com?subject=Hello%20from%20your%20portfolio" data-reveal>erpraveenganapathy@<wbr>gmail.com <span class="round glass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
@@ -375,6 +399,7 @@
           <li><a href="https://github.com/PraveenGanapathy" target="_blank" rel="noopener"><span>GitHub</span><span class="muted">github.com/<wbr>PraveenGanapathy</span></a></li>
           <li><a href="https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf" target="_blank" rel="noopener"><span>Résumé</span><span class="muted">PDF</span></a></li>
           <li><span><span>Based in</span><span class="muted">Washington, DC</span></span></li>
+          <li><a href="#mileo" data-open-mileo><span>Rather not share your details?</span><span class="muted">Tell Mileo 🐾</span></a></li>
         </ul>
       </div>
     </section>
@@ -385,8 +410,86 @@
     <p class="wordmark" aria-hidden="true">Praveen</p>
   </footer>
 
+  <button class="mileo-launch glass" type="button" aria-controls="mileo" aria-expanded="false" aria-label="Talk to Mileo, Praveen's dog-bot">
+    <svg class="mileo-dog " viewBox="0 0 120 120" aria-hidden="true">
+  <g class="m-head">
+    <ellipse class="m-ear m-ear-l" cx="27" cy="54" rx="15" ry="27" fill="#7a4a2c" transform="rotate(20 27 54)"/>
+    <ellipse class="m-ear m-ear-r" cx="93" cy="54" rx="15" ry="27" fill="#7a4a2c" transform="rotate(-20 93 54)"/>
+    <ellipse cx="60" cy="60" rx="36" ry="34" fill="#f2c27b"/>
+    <ellipse cx="60" cy="38" rx="10" ry="14" fill="#fff4e2"/>
+    <ellipse cx="60" cy="77" rx="22" ry="16" fill="#fff4e2"/>
+    <circle cx="37" cy="72" r="5" fill="#ff9aa8" opacity="0.55"/><circle cx="83" cy="72" r="5" fill="#ff9aa8" opacity="0.55"/>
+    <g class="m-eyes"><g class="m-eye"><circle cx="45" cy="57" r="5.5" fill="#1d1d2b"/><circle cx="46.8" cy="55" r="1.9" fill="#fff"/></g><g class="m-eye"><circle cx="75" cy="57" r="5.5" fill="#1d1d2b"/><circle cx="76.8" cy="55" r="1.9" fill="#fff"/></g></g>
+    <g class="m-happy-eyes" fill="none" stroke="#1d1d2b" stroke-width="3.2" stroke-linecap="round"><path d="M39 58q6-7 12 0"/><path d="M69 58q6-7 12 0"/></g>
+    <path d="M52 67q8-5 16 0q-1 7-8 9q-7-2-8-9z" fill="#1d1d2b"/>
+    <path class="m-tongue" d="M55 82q5 13 10 0z" fill="#ff7d93"/>
+    <path class="m-mouth" d="M51 80q9 7 9-2q0 9 9 2" fill="none" stroke="#1d1d2b" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+</svg>
+    <span class="mileo-bubble" aria-hidden="true">Woof! I'm Mileo 👋</span>
+  </button>
+  <div class="mileo glass" id="mileo" role="dialog" aria-labelledby="mileo-title" hidden>
+    <button class="mileo-close round" type="button" aria-label="Close Mileo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <div class="mileo-top">
+      <button class="mileo-face" type="button" aria-label="Pet Mileo"><svg class="mileo-dog big" viewBox="0 0 120 120" aria-hidden="true">
+  <g class="m-head">
+    <ellipse class="m-ear m-ear-l" cx="27" cy="54" rx="15" ry="27" fill="#7a4a2c" transform="rotate(20 27 54)"/>
+    <ellipse class="m-ear m-ear-r" cx="93" cy="54" rx="15" ry="27" fill="#7a4a2c" transform="rotate(-20 93 54)"/>
+    <ellipse cx="60" cy="60" rx="36" ry="34" fill="#f2c27b"/>
+    <ellipse cx="60" cy="38" rx="10" ry="14" fill="#fff4e2"/>
+    <ellipse cx="60" cy="77" rx="22" ry="16" fill="#fff4e2"/>
+    <circle cx="37" cy="72" r="5" fill="#ff9aa8" opacity="0.55"/><circle cx="83" cy="72" r="5" fill="#ff9aa8" opacity="0.55"/>
+    <g class="m-eyes"><g class="m-eye"><circle cx="45" cy="57" r="5.5" fill="#1d1d2b"/><circle cx="46.8" cy="55" r="1.9" fill="#fff"/></g><g class="m-eye"><circle cx="75" cy="57" r="5.5" fill="#1d1d2b"/><circle cx="76.8" cy="55" r="1.9" fill="#fff"/></g></g>
+    <g class="m-happy-eyes" fill="none" stroke="#1d1d2b" stroke-width="3.2" stroke-linecap="round"><path d="M39 58q6-7 12 0"/><path d="M69 58q6-7 12 0"/></g>
+    <path d="M52 67q8-5 16 0q-1 7-8 9q-7-2-8-9z" fill="#1d1d2b"/>
+    <path class="m-tongue" d="M55 82q5 13 10 0z" fill="#ff7d93"/>
+    <path class="m-mouth" d="M51 80q9 7 9-2q0 9 9 2" fill="none" stroke="#1d1d2b" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+</svg></button>
+      <div>
+        <h2 id="mileo-title">Mileo</h2>
+        <p class="muted">Praveen's very good dog-bot</p>
+      </div>
+    </div>
+    <p class="mileo-says" aria-live="polite"></p>
+    <div class="mileo-burst" aria-hidden="true"></div>
+    <div class="mileo-tabs" role="tablist" aria-label="What to do with Mileo">
+      <button type="button" role="tab" id="tab-feed" data-tab="feed" aria-controls="mp-feed" aria-selected="true">Feed</button>
+      <button type="button" role="tab" id="tab-cuddle" data-tab="cuddle" aria-controls="mp-cuddle" aria-selected="false" tabindex="-1">Cuddle</button>
+      <button type="button" role="tab" id="tab-note" data-tab="note" aria-controls="mp-note" aria-selected="false" tabindex="-1">Leave a note</button>
+    </div>
+    <div class="mileo-pane" id="mp-feed" role="tabpanel" aria-labelledby="tab-feed">
+      <div class="food">
+        <button type="button" data-food="bone"><span aria-hidden="true">🦴</span>Bone</button>
+        <button type="button" data-food="kibble"><span aria-hidden="true">🥣</span>Kibble</button>
+        <button type="button" data-food="carrot"><span aria-hidden="true">🥕</span>Carrot</button>
+        <button type="button" data-food="cookie"><span aria-hidden="true">🍪</span>Cookie</button>
+      </div>
+    </div>
+    <div class="mileo-pane" id="mp-cuddle" role="tabpanel" aria-labelledby="tab-cuddle" hidden>
+      <button class="mileo-cuddle pill pill-solid" type="button">Give Mileo a cuddle <span aria-hidden="true">🤗</span></button>
+    </div>
+    <div class="mileo-pane" id="mp-note" role="tabpanel" aria-labelledby="tab-note" hidden>
+      <form class="mileo-note" novalidate>
+        <label for="mileo-message">Your note for Praveen</label>
+        <textarea id="mileo-message" name="message" rows="3" maxlength="1000" required placeholder="Hi Praveen, loved your pipeline work…"></textarea>
+        <label for="mileo-reply">Your email <span class="muted">(only if you want a reply)</span></label>
+        <input id="mileo-reply" name="reply" type="email" autocomplete="email" placeholder="optional">
+        <button class="pill pill-solid" type="submit">Give the note to Mileo</button>
+        <p class="mileo-note-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="mileo-foot">
+      <p class="mileo-status"></p>
+      <p class="mileo-counts"><span aria-hidden="true">🦴</span> <span class="mileo-feeds nums">0</span> meals · <span aria-hidden="true">💙</span> <span class="mileo-cuddles nums">0</span> cuddles</p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+  <script src="backend.js"></script>
   <script src="liquid.js"></script>
   <script src="main.js"></script>
+  <script src="insights.js"></script>
+  <script src="mileo.js"></script>
 </body>
 </html>
