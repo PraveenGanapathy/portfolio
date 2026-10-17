@@ -3,10 +3,12 @@
 window.Backend = (() => {
   const env = window.ENV || {};
   const local = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
-  // In the local preview, without keys, a stand-in API served by the preview server is used.
-  const base = env.SUPABASE_URL ? env.SUPABASE_URL.replace(/\/$/, "") : local ? "/__mock" : "";
-  const key = env.SUPABASE_ANON_KEY || "local-preview";
-  const enabled = Boolean(base);
+  // The local preview always uses a stand-in API served by the preview server, so testing never
+  // writes into the real database. Add ?live to a local URL to use the real one on purpose.
+  const live = !local || new URLSearchParams(location.search).has("live");
+  const base = live ? (env.SUPABASE_URL || "").replace(/\/$/, "") : "/__mock";
+  const key = live ? env.SUPABASE_ANON_KEY || "" : "local-preview";
+  const enabled = Boolean(base && key);
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
