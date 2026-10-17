@@ -1,14 +1,47 @@
 const portfolioData = {
   basics: {
     name: "Praveen Ganapathy Ravi",
-    title: "AI & Data Engineer",
+    title: "Data Engineer",
     email: "erpraveenganapathy@gmail.com",
     linkedin: "linkedin.com/in/pravi01",
     github: "github.com/PraveenGanapathy",
-    about: "AI and Data Engineer with over 4 years of experience in backend development, ETL workflows, and cloud-native applications. Holds a Master's in Data Science from UMass Dartmouth with a focus on data pipelines, statistical modeling, and interactive visualization. Proficient in Python, SQL, AWS Lambda, Node.js, n8n automation, HubSpot CRM, and analytics platforms like PostHog. Known for building scalable AI automation agents and production-ready data systems that support intelligent decision-making across diverse business domains."  },
+    about: "I build the pipelines that move financial, budget and HR data out of SAP, REST APIs, SFTP drops and ODBC sources and into the World Bank's new Budget Planning Systems. Before that I migrated 4TB of production data at Infosys without losing a row, built AI automation agents at Goodie Bag, and finished an MS in Data Science at UMass Dartmouth with a 3.97 GPA."
+  },
+  // Copy for the page's set pieces. Run `node build.mjs` after editing this file.
+  page: {
+    heroLines: ["Praveen", "Ganapathy"],
+    heroSentence: "Data engineer at the World Bank Group, building the pipelines behind its new budget planning systems.",
+    stat: {
+      claim: "Budget data, on time, every day",
+      figure: "20",
+      unit: "+",
+      caption: "Azure Data Factory pipelines I designed and built at the World Bank Group, each run on one of 20+ daily triggers.",
+      source: "World Bank Group, since Feb 2026"
+    },
+    flow: {
+      heading: "In one end, out the other",
+      text: "Each morning, finance, budget and HR records leave SAP's FI, CO and HR modules, are shaped into Budget, CapEx, Commitment Item, Fund Center and Exchange Rate tables, and land curated in Azure Data Lake Storage, where Jedox picks them up for planning.",
+      from: { label: "From", word: "SAP" },
+      to: { label: "To", word: "ADLS" }
+    },
+    facts: [
+      { label: "Based in", value: "Washington, DC" },
+      { label: "Working since", value: "2020" },
+      { label: "Studied", value: "MS Data Science, 3.97 GPA" }
+    ],
+    record: [
+      { name: "Infosys INSTA Award", value: "Sep 2023" },
+      { name: "Infosys INSTA Award", value: "Dec 2022" },
+      { name: "First place, Jia.Seed hackathon", value: "Fall 2024" },
+      { name: "Paper, Journal of Xidian University", value: "Aug 2020" },
+      { name: "4TB migrated with zero data loss", value: "Infosys" },
+      { name: "Deploy time cut by 40% with CI/CD", value: "Infosys" }
+    ]
+  },
+
   contact: {
     email: "erpraveenganapathy@gmail.com",
-    location: "Dartmouth, MA"
+    location: "Washington, DC"
   },
 
   education: [
@@ -137,7 +170,7 @@ const portfolioData = {
       date: "Sep 2024",
       issuer: "Google Cloud",
       description: "Demonstrated proficiency in using BigQuery ML for predictive modeling and data engineering on Google Cloud Platform.",
-      credentialLink: "#"
+      credentialLink: null
     },
     {
       title: "Data Science Methodology",
@@ -158,12 +191,25 @@ const portfolioData = {
       date: "Feb 2023",
       issuer: "Infosys",
       description: "Advanced certification in Python programming focusing on production-ready code and best practices.",
-      credentialLink: "#"
+      credentialLink: null
     }
   ],
 
   experience: [
-        {
+    {
+      title: "Data Engineer",
+      company: "World Bank Group",
+      period: "Feb 2026 – Present",
+      location: "Washington, DC",
+      details: [
+        "Designed and built 20+ Azure Data Factory ETL/ELT pipelines and data flows integrating financial, budget, and HR data from ODBC sources, REST APIs, SFTP, and SAP (FI, CO, HR) into the World Bank's new Budget Planning Systems.",
+        "Developed core pipelines and transformations for Budget, CapEx (assets, depreciation, cost share, fund movements, investments), Commitment Items, Fund Center Hierarchy, Exchange Rate, and consolidated FICO/RMRF (incl. secure variants), loading curated data into ADLS.",
+        "Built and configured Jedox ETL integrators to connect planning and budgeting data flows between Jedox and upstream Azure/SAP sources, enabling accurate, automated data refreshes for enterprise budget planning.",
+        "Set up and managed 20+ scheduled triggers to orchestrate daily pipeline execution across budget, CapEx, commitment, fund hierarchy, and SAP integration workflows, ensuring reliable, timely data availability.",
+        "Configured linked services, integration runtimes, and connections for secure data movement across on-prem and cloud sources."
+      ]
+    },
+    {
       title: "AI and Data Engineer",
       company: "Goodie Bag",
       period: "Aug 2025 – Present",
@@ -240,13 +286,14 @@ const portfolioData = {
   projects: [
     {
       title: "Brain Tumor Detection Using Deep Learning",
+      kind: "Deep learning",
       period: "Spring 2025",
       association: "University of Massachusetts Dartmouth",
       brief: "CNN-based classification system for brain tumor detection from MRI scans with 94.87% accuracy.",
       skills: ["Python", "TensorFlow", "Streamlit", "Deep Learning", "CNN"],
-      repo: "https://github.com/ArunRengaraman/BrainMRI",
-      demo: "https://github.com/ArunRengaraman/BrainMRI",
-      image: "images/projects/brain-mri.gif",
+      repo: "https://github.com/PraveenGanapathy/BrainMRI",
+      demo: null,
+      image: "images/projects/brain-mri",
       imagePlaceholder: "A medical image analysis dashboard showing MRI scan classification with brain tumor regions highlighted",
       description: "Developed an MRI-based Convolutional Neural Network (CNN) classification system using EfficientNet and other pretrained models, achieving 94.87% accuracy in brain tumor detection. Deployed a Streamlit interface for live inference, enhancing clinical decision-making utility for healthcare professionals.",
       learnings: [
@@ -259,13 +306,14 @@ const portfolioData = {
     },
     {
       title: "DocViz – Interactive Document Clustering",
+      kind: "NLP and visualization",
       period: "Spring 2025",
       association: "University of Massachusetts Dartmouth",
       brief: "Document analysis platform using TF-IDF, KMeans, and MDS visualized with D3.js.",
       skills: ["Python", "Node.js", "D3.js", "Machine Learning", "NLP"],
       repo: "https://github.com/PraveenGanapathy/DocViz",
-      demo: "https://github.com/PraveenGanapathy/DocViz",
-      image: "images/projects/doc_viz.gif",
+      demo: "https://va-hw-1.vercel.app/",
+      image: "images/projects/doc_viz",
       imagePlaceholder: "Interactive D3.js visualization showing document clusters with connecting lines and hover effects",
       description: "Built a document analysis platform that employs TF-IDF vectorization and KMeans clustering, with results visualized through Multidimensional Scaling (MDS) and D3.js. The system enables multi-document interaction, dynamic clustering, and visual insights through an intuitive browser-based user interface.",
       learnings: [
@@ -278,13 +326,14 @@ const portfolioData = {
     },
     {
       title: "Career Centre Analytics Dashboard",
+      kind: "Analytics dashboard",
       period: "Spring 2025",
       association: "University of Massachusetts Dartmouth",
       brief: "Dashboard combining Flask, D3.js, and Power BI to track UMass career center metrics.",
       skills: ["Flask", "D3.js", "Power BI", "Azure", "Python"],
       repo: "https://github.com/PraveenGanapathy/careercentreanalytics",
-      demo: "https://github.com/PraveenGanapathy/careercentreanalytics",
-      image: "images/projects/cc_metrics.gif",
+      demo: null,
+      image: "images/projects/cc_metrics",
       imagePlaceholder: "Dashboard with multiple charts showing student appointments, employer engagement, and career fair attendance metrics",
       description: "Created a comprehensive dashboard using Flask and D3.js to track key UMass career center performance metrics, with data stored in Azure Blob Storage. The system significantly improved internal reporting by automating metric updates from Excel sheets and providing interactive visualizations for stakeholder analysis.",
       learnings: [
@@ -297,13 +346,14 @@ const portfolioData = {
     },
     {
       title: "Flight Delay Analysis",
+      kind: "Data pipeline",
       period: "Fall 2024",
       association: "University of Massachusetts Dartmouth",
       brief: "Data pipeline with Apache Airflow, Papermill, and Streamlit to analyze FAA flight delays.",
       skills: ["Python", "Apache Airflow", "AWS S3", "Streamlit", "Docker"],
       repo: "https://github.com/PraveenGanapathy/flight_analysis_project",
-      demo: "https://github.com/PraveenGanapathy/flight_analysis_project",
-      image: "images/projects/flight-delay.gif",
+      demo: null,
+      image: "images/projects/flight-delay",
       imagePlaceholder: "Streamlit application showing flight delay visualization with interactive filters and an Airflow DAG workflow diagram",
       description: "Built a comprehensive data pipeline using Apache Airflow, Papermill, and Streamlit to analyze FAA flight delay data. The system utilizes AWS S3 for scalable data storage and Docker for deployment orchestration, providing insights into delay patterns and operational efficiency across airlines and airports.",
       learnings: [
@@ -316,13 +366,14 @@ const portfolioData = {
     },
     {
       title: "SimuChat – AI Roleplay Game (Hackathon Winner)",
+      kind: "LLM game",
       period: "Fall 2024",
       association: "Jia.Seed Hackathon",
       brief: "Real-time AI roleplay game with 36 characters and 12 scenarios using Next.js and Shadcn.",
       skills: ["Next.js", "Shadcn", "AI/LLM", "React", "JavaScript"],
       repo: "https://github.com/phanturne/ai-chat-game",
-      demo: "https://github.com/phanturne/ai-chat-game",
-      image: "images/projects/simuchat.gif",
+      demo: "https://ai-chat-game-swart.vercel.app",
+      image: "images/projects/simuchat",
       imagePlaceholder: "Interactive chat interface showing roleplay with AI characters in various scenarios with customization options",
       description: "Developed an immersive real-time roleplay game featuring 36 AI characters across 12 engaging scenarios using Next.js and Shadcn. The project won first place for innovation in the Jia.Seed hackathon, generating over 15,000 interactions with 95% engagement accuracy across various user demographics.",
       learnings: [
@@ -336,15 +387,16 @@ const portfolioData = {
     },
     {
       title: "Local Library Management System",
+      kind: "Web application",
       period: "Summer 2024",
       association: "University of Massachusetts Dartmouth",
       brief: "Django-based library system with user authentication and permission-based lending.",
       skills: ["Django", "SQLite", "Ajax", "Python", "HTML/CSS"],
       repo: "https://github.com/PraveenGanapathy/locallibrary",
-      demo: "https://github.com/PraveenGanapathy/locallibrary",
-      image: "images/projects/library-management.gif",
+      demo: null,
+      image: "images/projects/library-management",
       imagePlaceholder: "Library management interface showing book catalog, borrowing status, and user authentication screens",
-      description: "Designed a comprehensive Django-based library management system featuring user authentication, book browsing, and permission-based lending functionalities. The application is hosted on PythonAnywhere and supports database operations with SQLite and Ajax validation for improved user experience.",
+      description: "Designed a comprehensive Django-based library management system featuring user authentication, book browsing, and permission-based lending functionalities. The application was hosted on PythonAnywhere and supports database operations with SQLite and Ajax validation for improved user experience.",
       learnings: [
         "Implemented Django's authentication and permission systems",
         "Designed relational database models for library operations",
@@ -355,13 +407,14 @@ const portfolioData = {
     },
     {
       title: "Bank Marketing Dataset Analysis",
+      kind: "Predictive modelling",
       period: "Spring 2024",
       association: "University of Massachusetts Dartmouth",
       brief: "Predictive models and Streamlit dashboard for term deposit subscription prediction.",
       skills: ["Python", "Streamlit", "XGBoost", "Scikit-learn", "Data Analysis"],
       repo: "https://github.com/PraveenGanapathy/Bankmarketing",
-      demo: "https://github.com/PraveenGanapathy/Bankmarketing",
-      image: "images/projects/bank-marketing.gif",
+      demo: null,
+      image: "images/projects/bank-marketing",
       imagePlaceholder: "Streamlit dashboard with predictive model results, feature importance plots, and customer segment analysis",
       description: "Built sophisticated predictive models including Random Forest and XGBoost to classify term deposit subscriptions based on customer data. Created an interactive Streamlit dashboard for exploring factors influencing client behavior and generating actionable insights for marketing optimization.",
       learnings: [
