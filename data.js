@@ -20,11 +20,6 @@ const portfolioData = {
       { value: "3.97", label: "GPA, MS in Data Science" }
     ],
     heroSentence: "Data engineer at the World Bank Group, building the pipelines behind its new budget planning systems.",
-    heroInfo: [
-      ["Azure · SAP · Python", "Data pipelines"],
-      ["Currently at", "World Bank Group"],
-      ["Based in", "Washington, DC"]
-    ],
     intro: { before: "I'm Praveen. I build", accent: "reliable", after: "pipelines for the World Bank's budget data." },
     facts: [
       { label: "Based in", value: "Washington, DC" },
@@ -53,7 +48,6 @@ const portfolioData = {
       period: "Jan 2024 – May 2025",
       location: "Dartmouth, MA",
       gpa: "3.97",
-      logo: "fas fa-university",
       highlights: [
         "Advanced coursework in data mining, artificial intelligence, and statistical analysis",
         "Research focus on data pipelines, statistical modeling, and interactive visualization",
@@ -77,7 +71,6 @@ const portfolioData = {
       period: "Jun 2016 – Nov 2020",
       location: "Chennai, India",
       gpa: "7.39",
-      logo: "fas fa-graduation-cap",
       highlights: [
         "Completed technical coursework in programming, electronics, and communications systems",
         "Published research on antenna design in the Journal of Xidian University",
@@ -104,42 +97,34 @@ const portfolioData = {
     categories: [
       {
         title: "Programming Languages",
-        icon: "fas fa-laptop-code",
         skills: ["Python", "SQL", "R", "JavaScript", "Node.js", "PHP", "HTML/CSS"]
       },
       {
         title: "Data Engineering",
-        icon: "fas fa-database",
         skills: ["ETL Pipelines", "Apache Airflow", "Data Warehousing", "Data Migration", "n8n"]
       },
       {
         title: "Data Analysis",
-        icon: "fas fa-chart-bar",
         skills: ["EDA", "Hypothesis Testing", "Predictive Modeling", "Statistical Analysis", "PostHog"]
       },
       {
         title: "Cloud & DevOps",
-        icon: "fas fa-cloud",
         skills: ["AWS (EC2, S3, Lambda)", "Docker", "CI/CD", "Scalability"]
       },
       {
         title: "Databases",
-        icon: "fas fa-server",
         skills: ["PostgreSQL", "MySQL", "SQLite", "NoSQL", "DB Optimization"]
       },
       {
         title: "Visualization",
-        icon: "fas fa-chart-pie",
         skills: ["Power BI", "Tableau", "Streamlit", "D3.js", "Matplotlib", "Seaborn"]
       },
       {
         title: "Frameworks & Libraries",
-        icon: "fas fa-cubes",
         skills: ["Pandas", "NumPy", "Django", "Streamlit", "Next.js", "Symfony"]
       },
       {
         title: "Tools",
-        icon: "fas fa-tools",
         skills: ["Git", "Jupyter", "VS Code", "Excel", "Shell Scripting", "HubSpot CRM"]
       }
     ]
@@ -150,49 +135,42 @@ const portfolioData = {
       title: "Intermediate Web Development",
       date: "Aug 2025",
       issuer: "CodePath",
-      description: "Comprehensive certification covering web development ( React + vite ), API development, and modern web technologies. Credential ID: 313434",
       credentialLink: "https://www.linkedin.com/in/pravi01/overlay/1755271314648/single-media-viewer?type=LINK&profileId=ACoAACK6Sk4Bb88vZOA3-5wQ2hq-xdmp10Eqy2w&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BQsNkqNpnQcWumfzT%2BgifxQ%3D%3D"
     },
     {
       title: "Intermediate Technical Interview Prep (TIP 102)",
       date: "May 2025",
       issuer: "CodePath",
-      description: "Mastered data structures, algorithms, and problem-solving through coding challenges and mock interviews. Gained practical experience in solution optimization and technical interview preparation.",
       credentialLink: "https://www.linkedin.com/in/pravi01/overlay/1746624385860/single-media-viewer/?type=DOCUMENT&profileId=ACoAACK6Sk4Bb88vZOA3-5wQ2hq-xdmp10Eqy2w"
     },
     {
       title: "Data Engineer Associate",
       date: "Apr 2025",
       issuer: "DataCamp",
-      description: "Professional certification demonstrating proficiency in data engineering principles, ETL processes, and data pipeline development.",
       credentialLink: "https://www.datacamp.com/certificate/DEA0016061916204"
     },
     {
       title: "Engineer Data for Predictive Modeling with BigQuery ML",
       date: "Sep 2024",
       issuer: "Google Cloud",
-      description: "Demonstrated proficiency in using BigQuery ML for predictive modeling and data engineering on Google Cloud Platform.",
       credentialLink: null
     },
     {
       title: "Data Science Methodology",
       date: "Sep 2023",
       issuer: "Coursera",
-      description: "Mastered data science methodologies including CRISP-DM for structured problem-solving and project implementation.",
       credentialLink: "https://www.coursera.org/account/accomplishments/verify/7Q7RJYN9DWCZ"
     },
     {
       title: "What is Data Science?",
       date: "Sep 2023",
       issuer: "Coursera",
-      description: "Comprehensive introduction to data science principles, applications, and career paths in the field.",
       credentialLink: "https://www.coursera.org/account/accomplishments/verify/FQLAMXWYR4SK"
     },
     {
       title: "Infosys Certified Python Programmer",
       date: "Feb 2023",
       issuer: "Infosys",
-      description: "Advanced certification in Python programming focusing on production-ready code and best practices.",
       credentialLink: null
     }
   ],
@@ -216,7 +194,6 @@ const portfolioData = {
       company: "Goodie Bag",
       period: "Aug 2025 – Dec 2025",
       location: "Boulder, CO (Remote)",
-      icon: "fas fa-robot",
       details: [
         "Developing AI automation agents using n8n and Node.js; deploy serverless workflows with AWS Lambda.",
         "Integrate HubSpot CRM and PostgreSQL for lead management and data operations.",
@@ -228,7 +205,6 @@ const portfolioData = {
       company: "University of Massachusetts Dartmouth",
       period: "Sep 2024 – May 2025",
       location: "Dartmouth, MA",
-      icon: "fas fa-chart-line",
       details: [
         "Developed a custom D3.js dashboard to visualize key Career Center performance metrics such as student appointment trends, resume reviews, and employer engagement, improving data accessibility for internal stakeholders.",
         "Created interactive Power BI dashboards to monitor student participation in events and appointments, streamlining reporting processes and supporting data-informed decision-making.",
@@ -241,7 +217,6 @@ const portfolioData = {
       company: "University of Massachusetts Dartmouth",
       period: "Jan 2025 – May 2025",
       location: "Dartmouth, MA",
-      icon: "fas fa-chalkboard-teacher",
       details: [
         "Evaluated student assignments and projects involving computational modeling, simulation, and visualization techniques using mathematical programming tools and scripting languages.",
         "Ensured accurate and timely feedback on coursework requiring a strong foundation in calculus and applied mathematics, supporting student learning in preparation for advanced computational math courses."
@@ -252,7 +227,6 @@ const portfolioData = {
       company: "University of Massachusetts Dartmouth",
       period: "Sep 2024 – Dec 2024",
       location: "Dartmouth, MA",
-      icon: "fas fa-server",
       details: [
         "Assessed graduate-level assignments on topics such as parallel processing, memory hierarchies, multi-core systems, and message passing in HPC environments.",
         "Provided constructive, technical feedback on student submissions related to the design, analysis, and implementation of high-performance computational applications."
@@ -263,7 +237,6 @@ const portfolioData = {
       company: "Infosys Limited",
       period: "Jun 2021 – Jan 2024",
       location: "Chennai, India",
-      icon: "fas fa-database",
       details: [
         "Designed and executed robust ETL pipelines to migrate 4TB of production data from SQL Azure Virtual Machines to Azure Managed Instances, ensuring zero data loss and improved query performance across client-facing analytics systems. (NTT Data)",
         "Led backend data engineering efforts for telecom applications at TalkTalk Business (UK), including legacy modernization from Zend/Symfony PHP stacks to newer frameworks.",
@@ -277,7 +250,6 @@ const portfolioData = {
       company: "Wipro Limited",
       period: "Feb 2020 – May 2021",
       location: "Chennai, India",
-      icon: "fas fa-code",
       details: [
         "Completed intensive technical training in backend development and data center operations, with strong performance in Python-based application development modules.",
         "Developed and optimized sample web application modules in Python during training, achieving improved response time benchmarks in simulated environments."
@@ -296,15 +268,7 @@ const portfolioData = {
       repo: "https://github.com/PraveenGanapathy/BrainMRI",
       demo: null,
       image: "images/projects/brain-mri",
-      imagePlaceholder: "A medical image analysis dashboard showing MRI scan classification with brain tumor regions highlighted",
       description: "Developed an MRI-based Convolutional Neural Network (CNN) classification system using EfficientNet and other pretrained models, achieving 94.87% accuracy in brain tumor detection. Deployed a Streamlit interface for live inference, enhancing clinical decision-making utility for healthcare professionals.",
-      learnings: [
-        "Implemented and fine-tuned CNN architectures for medical image analysis",
-        "Developed techniques for handling imbalanced medical datasets",
-        "Created interactive web interfaces for AI model deployment",
-        "Applied transfer learning principles to specialized domains",
-        "Gained experience in medical data preprocessing and augmentation"
-      ]
     },
     {
       title: "DocViz – Interactive Document Clustering",
@@ -316,15 +280,7 @@ const portfolioData = {
       repo: "https://github.com/PraveenGanapathy/DocViz",
       demo: "https://va-hw-1.vercel.app/",
       image: "images/projects/doc_viz",
-      imagePlaceholder: "Interactive D3.js visualization showing document clusters with connecting lines and hover effects",
       description: "Built a document analysis platform that employs TF-IDF vectorization and KMeans clustering, with results visualized through Multidimensional Scaling (MDS) and D3.js. The system enables multi-document interaction, dynamic clustering, and visual insights through an intuitive browser-based user interface.",
-      learnings: [
-        "Applied natural language processing techniques for document analysis",
-        "Implemented unsupervised learning algorithms for text clustering",
-        "Created interactive data visualizations with D3.js",
-        "Designed intuitive user interfaces for complex data exploration",
-        "Integrated Python backend with JavaScript frontend"
-      ]
     },
     {
       title: "Career Centre Analytics Dashboard",
@@ -336,15 +292,7 @@ const portfolioData = {
       repo: "https://github.com/PraveenGanapathy/careercentreanalytics",
       demo: null,
       image: "images/projects/cc_metrics",
-      imagePlaceholder: "Dashboard with multiple charts showing student appointments, employer engagement, and career fair attendance metrics",
       description: "Created a comprehensive dashboard using Flask and D3.js to track key UMass career center performance metrics, with data stored in Azure Blob Storage. The system significantly improved internal reporting by automating metric updates from Excel sheets and providing interactive visualizations for stakeholder analysis.",
-      learnings: [
-        "Developed end-to-end data pipeline from Excel to web dashboard",
-        "Integrated Azure cloud services for data storage and processing",
-        "Created custom D3.js visualizations for specialized metrics",
-        "Implemented Flask backend for data serving and processing",
-        "Applied user experience principles for analytics dashboards"
-      ]
     },
     {
       title: "Flight Delay Analysis",
@@ -356,15 +304,7 @@ const portfolioData = {
       repo: "https://github.com/PraveenGanapathy/flight_analysis_project",
       demo: null,
       image: "images/projects/flight-delay",
-      imagePlaceholder: "Streamlit application showing flight delay visualization with interactive filters and an Airflow DAG workflow diagram",
       description: "Built a comprehensive data pipeline using Apache Airflow, Papermill, and Streamlit to analyze FAA flight delay data. The system utilizes AWS S3 for scalable data storage and Docker for deployment orchestration, providing insights into delay patterns and operational efficiency across airlines and airports.",
-      learnings: [
-        "Gained expertise in building and orchestrating ETL pipelines",
-        "Implemented workflow automation using Apache Airflow",
-        "Deployed data applications with Docker containers",
-        "Utilized AWS S3 for scalable data storage",
-        "Created interactive data visualizations with Streamlit"
-      ]
     },
     {
       title: "SimuChat – AI Roleplay Game (Hackathon Winner)",
@@ -376,16 +316,7 @@ const portfolioData = {
       repo: "https://github.com/phanturne/ai-chat-game",
       demo: "https://ai-chat-game-swart.vercel.app",
       image: "images/projects/simuchat",
-      imagePlaceholder: "Interactive chat interface showing roleplay with AI characters in various scenarios with customization options",
       description: "Developed an immersive real-time roleplay game featuring 36 AI characters across 12 engaging scenarios using Next.js and Shadcn. The project won first place for innovation in the Jia.Seed hackathon, generating over 15,000 interactions with 95% engagement accuracy across various user demographics.",
-      learnings: [
-        "Integrated advanced LLM models for interactive character experiences",
-        "Implemented responsive UI with Next.js and Shadcn components",
-        "Designed character personas with distinct personality traits",
-        "Created branching conversation pathways based on user choices",
-        "Optimized API calls for cost-effective LLM usage",
-        "Developed under pressure in a competitive hackathon environment"
-      ]
     },
     {
       title: "Local Library Management System",
@@ -397,15 +328,7 @@ const portfolioData = {
       repo: "https://github.com/PraveenGanapathy/locallibrary",
       demo: null,
       image: "images/projects/library-management",
-      imagePlaceholder: "Library management interface showing book catalog, borrowing status, and user authentication screens",
       description: "Designed a comprehensive Django-based library management system featuring user authentication, book browsing, and permission-based lending functionalities. The application was hosted on PythonAnywhere and supports database operations with SQLite and Ajax validation for improved user experience.",
-      learnings: [
-        "Implemented Django's authentication and permission systems",
-        "Designed relational database models for library operations",
-        "Created responsive web interfaces with Django templates",
-        "Utilized Ajax for asynchronous form validation",
-        "Deployed web applications on PythonAnywhere hosting"
-      ]
     },
     {
       title: "Bank Marketing Dataset Analysis",
@@ -417,15 +340,7 @@ const portfolioData = {
       repo: "https://github.com/PraveenGanapathy/Bankmarketing",
       demo: null,
       image: "images/projects/bank-marketing",
-      imagePlaceholder: "Streamlit dashboard with predictive model results, feature importance plots, and customer segment analysis",
       description: "Built sophisticated predictive models including Random Forest and XGBoost to classify term deposit subscriptions based on customer data. Created an interactive Streamlit dashboard for exploring factors influencing client behavior and generating actionable insights for marketing optimization.",
-      learnings: [
-        "Applied ensemble learning techniques for classification tasks",
-        "Implemented feature engineering for improved model performance",
-        "Created interactive data visualizations with Streamlit",
-        "Performed model evaluation and comparison",
-        "Translated technical findings into actionable business insights"
-      ]
     }
   ],
 
@@ -436,19 +351,6 @@ const portfolioData = {
       publisher: "Journal of Xidian University",
       description: "Published undergraduate research on antenna design to support vehicle-to-vehicle (V2V) communication systems.",
       link: "https://xadzkjdx.cn/index.php/volume-14-issue-8-aug-20/"
-    }
-  ],
-
-  social: [
-    {
-      platform: "GitHub",
-      url: "https://github.com/PraveenGanapathy",
-      icon: "fab fa-github"
-    },
-    {
-      platform: "LinkedIn",
-      url: "https://linkedin.com/in/pravi01",
-      icon: "fab fa-linkedin"
     }
   ]
 };

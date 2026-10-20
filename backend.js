@@ -35,16 +35,16 @@ window.Backend = (() => {
     return city ? city.replace(/_/g, " ") : "Somewhere";
   })();
 
+  // Sources are shown publicly, so only these names are ever sent (the database checks the same list).
   const source = (() => {
-    const utm = new URLSearchParams(location.search).get("utm_source");
-    if (utm) return utm.slice(0, 40);
+    const utm = (new URLSearchParams(location.search).get("utm_source") || "").toLowerCase();
     let host = "";
     try { host = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : ""; } catch { /* bad referrer */ }
-    if (!host || host === location.hostname) return "Direct";
-    const known = [[/linkedin\.com|lnkd\.in/, "LinkedIn"], [/github\.com/, "GitHub"], [/google\./, "Google"], [/bing\.com/, "Bing"],
-      [/duckduckgo/, "DuckDuckGo"], [/(^|\.)t\.co$|twitter\.com|x\.com/, "X"], [/facebook\.com/, "Facebook"], [/reddit\.com/, "Reddit"]];
-    const hit = known.find(([re]) => re.test(host));
-    return hit ? hit[1] : host.slice(0, 40);
+    if (!utm && (!host || host === location.hostname)) return "Direct";
+    const known = [[/linkedin|lnkd\.in/, "LinkedIn"], [/github/, "GitHub"], [/google/, "Google"], [/bing/, "Bing"],
+      [/duckduckgo/, "DuckDuckGo"], [/(^|\.)t\.co$|twitter|^x$|x\.com/, "X"], [/facebook/, "Facebook"], [/reddit/, "Reddit"]];
+    const hit = known.find(([re]) => re.test(utm || host));
+    return hit ? hit[1] : "Other";
   })();
 
   const headers = { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" };

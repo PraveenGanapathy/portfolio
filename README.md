@@ -46,13 +46,19 @@ The site switches about a minute later.
 To also get each note by email, create an EmailJS template that sends to you, using the variables
 `{{message}}`, `{{reply_to}}` and `{{region}}`, and put its ID in `EMAILJS_NOTE_TEMPLATE_ID`.
 
-Regions come from the visitor's browser time zone; no IP addresses are stored.
+Regions come from the visitor's browser time zone; no IP addresses are stored. Because regions and traffic
+sources are shown on the page, the database only accepts known sources and real time-zone regions. After
+changing `schema.sql`, run the whole file again in the SQL Editor (it is safe to re-run).
+
+Spam protection for email: in the EmailJS dashboard, set **Account → Security → Allowed origins** to
+`https://praveenganapathy.github.io`, and turn on its rate limit, so nobody can use up the monthly quota.
 
 ## Mileo's weather
 
-`weather.js` looks up the visitor's approximate city from their IP with GeoJS (get.geojs.io) and the current
+`weather.js` guesses the visitor's city and state from their IP with GeoJS (get.geojs.io) and gets the current
 weather from Open-Meteo. Both are free and need no key. Nothing is stored except a 30-minute cache in the tab.
-Rain or a storm: umbrella. Snow: jacket and beanie. Below 5°C: jacket. Sunny: shades.
+The small Mileo in the corner shows it under his name (for example "☔ Rain · 47°F · Lawton"), and his panel
+shows the full guess. Rain or a storm: umbrella. Snow: jacket and beanie. Below 5°C: jacket. Sunny: shades.
 Preview any outfit with `?weather=rain` (or `snow`, `storm`, `clear`, `cloudy`, `fog`; add `&night`).
 
 ## Photo credits

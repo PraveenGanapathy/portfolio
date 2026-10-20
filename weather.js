@@ -12,6 +12,7 @@
     code <= 1 ? "clear" : code <= 3 ? "cloudy" : code <= 48 ? "fog" : code <= 67 ? "rain"
       : code <= 77 ? "snow" : code <= 82 ? "rain" : code <= 86 ? "snow" : "storm";
   const LABEL = { clear: "Clear", cloudy: "Cloudy", fog: "Foggy", rain: "Rain", storm: "Thunderstorm", snow: "Snow" };
+  const ICON = { clear: "☀️", cloudy: "☁️", fog: "🌫️", rain: "☔", storm: "⛈️", snow: "❄️" };
   const line = ({ kind, city, day, cold }) => {
     const where = city ? ` in ${city}` : " where you are";
     const text = {
@@ -33,7 +34,7 @@
     } catch { /* no storage */ }
     const geo = await getJSON("https://get.geojs.io/v1/ip/geo.json");
     const wx = await getJSON(`https://api.open-meteo.com/v1/forecast?latitude=${Number(geo.latitude)}&longitude=${Number(geo.longitude)}&current=temperature_2m,weather_code,is_day`);
-    const result = { at: Date.now(), city: geo.city || "", country: geo.country_code || "", code: wx.current.weather_code, temp: wx.current.temperature_2m, day: wx.current.is_day === 1 };
+    const result = { at: Date.now(), city: geo.city || "", region: geo.region || geo.country || "", country: geo.country_code || "", code: wx.current.weather_code, temp: wx.current.temperature_2m, day: wx.current.is_day === 1 };
     try { sessionStorage.setItem("pgr-weather", JSON.stringify(result)); } catch { /* no storage */ }
     return result;
   };
@@ -45,15 +46,19 @@
     root.dataset.wx = w.kind;
     root.toggleAttribute("data-wx-day", w.day);
     root.toggleAttribute("data-wx-cold", w.cold);
-    const tag = document.querySelector(".wx-tag");
-    if (tag) {
-      const f = w.country === "US";
-      const temp = w.temp == null ? "" : ` · ${Math.round(f ? w.temp * 1.8 + 32 : w.temp)}°${f ? "F" : "C"}`;
-      tag.innerHTML = "";
+    // Weather details go on the small Mileo: under his name on the button, and at the top of his panel.
+    const f = w.country === "US";
+    const temp = w.temp == null ? "" : ` · ${Math.round(f ? w.temp * 1.8 + 32 : w.temp)}°${f ? "F" : "C"}`;
+    const place = [w.city, w.region].filter(Boolean).join(", ");
+    const icon = w.kind === "clear" && !w.day ? "🌙" : ICON[w.kind];
+    const label = document.querySelector(".mileo-label span");
+    if (label) label.textContent = `${icon} ${LABEL[w.kind]}${temp}${w.city ? ` · ${w.city}` : ""}`;
+    const panel = document.querySelector(".mileo-wx");
+    if (panel) {
       const head = document.createElement("b");
-      head.textContent = `${LABEL[w.kind]}${temp}`;
-      tag.append(head, w.line);
-      tag.hidden = false;
+      head.textContent = `${icon} ${LABEL[w.kind]}${temp}`;
+      panel.replaceChildren(head, place ? ` in ${place}, my guess from your connection.` : "");
+      panel.hidden = false;
     }
     window.MileoWeather = w;
     dispatchEvent(new CustomEvent("mileo:weather", { detail: w }));

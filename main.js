@@ -21,7 +21,14 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
 // Preloader: count to 100 over 2s, fade the labels, wipe the curtain up, then let the hero play.
 (() => {
   const pre = document.getElementById("preloader");
-  const done = () => { root.classList.remove("is-loading"); root.classList.add("is-revealed"); if (window.lenis) window.lenis.start(); };
+  const done = () => {
+    root.classList.remove("is-loading");
+    root.classList.add("is-revealed");
+    if (window.lenis) window.lenis.start();
+    // The counter starts at the top; a link to a section (…/#projects) should still land there.
+    const target = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if (target) window.lenis ? window.lenis.scrollTo(target, { immediate: true }) : target.scrollIntoView();
+  };
   if (!pre || !root.classList.contains("is-loading")) { done(); return; }
   scrollTo(0, 0);
   const num = pre.querySelector(".pre-count span");
@@ -131,7 +138,7 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
   const water = document.querySelector("#water feTurbulence");
   const waterMap = document.querySelector("#water feDisplacementMap");
   const STEP = 0.27; // radians between neighbouring cards
-  let gap = 1, radius = 0, pos = 0, vel = 0, target = null, current = -1, front = -1, inView = false, raf = 0;
+  let gap = 1, radius = 0, pos = 0, vel = 0, target = null, current = -1, front = -1, tracked = 0, inView = false, raf = 0;
 
   const layout = () => {
     gap = cards[0].offsetWidth * 1.08;
@@ -152,7 +159,6 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
     infos.forEach((el, k) => { el.hidden = k !== i; });
     dots.forEach((d, k) => d.setAttribute("aria-selected", String(k === i)));
     count.textContent = String(i + 1).padStart(2, "0");
-    track("view_project", { event_category: "engagement", event_label: projects[i].textContent.trim() });
   };
   const render = () => {
     cards.forEach((c, j) => {
@@ -187,7 +193,11 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
       waterMap.setAttribute("scale", (16 + Math.min(40, Math.abs(vel) * 60)).toFixed(1));
     }
     const settled = target !== null && Math.abs(target - pos) < 0.002 && Math.abs(vel) < 0.002;
-    if (settled && !dragging) { pos = target; render(); }
+    if (settled && !dragging) {
+      pos = target; render();
+      // Count a project as viewed once the hall comes to rest on it, not for every card spun past.
+      if (current !== tracked) { tracked = current; track("view_project", { event_category: "engagement", event_label: projects[current].textContent.trim() }); }
+    }
     if (inView && (!settled || dragging || !reduceMotion)) raf = requestAnimationFrame(tick);
   };
   const run = () => { if (!raf && inView) raf = requestAnimationFrame(tick); };
@@ -220,15 +230,16 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
     pos += step;
     vel = Math.max(-0.4, Math.min(0.4, vel * 0.5 + step * 0.5)); // a hard flick spins a few cards, not laps
   });
-  const release = () => {
+  // pointercancel means the browser took the touch over to scroll the page, so it is never a tap.
+  const release = (tap) => {
     if (!dragging) return;
     dragging = false;
     stage.classList.remove("is-dragging");
-    if (moved < 6 && downCard) go(cards.indexOf(downCard) % N);
+    if (tap && moved < 6 && downCard) go(cards.indexOf(downCard) % N);
     run();
   };
-  stage.addEventListener("pointerup", release);
-  stage.addEventListener("pointercancel", release);
+  stage.addEventListener("pointerup", () => release(true));
+  stage.addEventListener("pointercancel", () => release(false));
   stage.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
     if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }

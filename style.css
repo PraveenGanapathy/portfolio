@@ -128,15 +128,6 @@ main > section, .contact { padding: var(--section) var(--gutter); }
 .hero-side { display: grid; justify-items: start; gap: 1.5rem; max-width: 26rem; }
 .hero-desc { font-size: var(--t-body); color: var(--muted); }
 @media (min-width: 640px) { .hero-side { justify-items: end; text-align: right; } }
-.hero-mileo { position: absolute; z-index: 20; left: 50%; bottom: 7vh; transform: translateX(-50%); width: min(46vh, 72vw); pointer-events: none; }
-.hero-dog { display: block; width: 100%; pointer-events: auto; border-radius: 50%; }
-.hero-dog .mileo-dog { filter: drop-shadow(0 2rem 3rem rgba(0, 0, 0, 0.6)); }
-.wx-tag { position: absolute; left: 100%; top: 30%; width: max-content; max-width: 16rem; padding: 0.6rem 0.9rem; border: 1px solid var(--line-strong); border-radius: 1rem 1rem 1rem 0.25rem; background: rgba(4, 6, 11, 0.7); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-size: 0.875rem; line-height: 1.35; color: var(--foreground); pointer-events: auto; }
-.wx-tag b { display: block; font-size: var(--t-eyebrow); font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent-2); margin-bottom: 0.2rem; }
-@media (max-width: 640px) {
-  .hero-mileo { width: 52vw; bottom: 11vh; }
-  .wx-tag { left: 70%; top: -12%; max-width: 38vw; font-size: 0.75rem; }
-}
 .hero-fade { position: absolute; inset-inline: 0; bottom: 0; z-index: 15; height: 26vh; background: linear-gradient(to bottom, transparent, var(--background)); pointer-events: none; }
 .hero-name { position: absolute; inset-inline: 0; bottom: 0; z-index: 10; transform: translateY(6%); display: flex; flex-direction: column; align-items: center; font-family: var(--font-display); text-transform: uppercase; line-height: 0.8; letter-spacing: -0.01em; color: var(--accent); font-size: min(var(--t-mega), 21vw); }
 @media (min-width: 640px) { .hero-name { font-size: var(--t-hero); } }
@@ -308,18 +299,14 @@ details[open] > summary .dot, summary:hover .dot { background: var(--accent); tr
 /* hero entrance, timed after the preloader by the .is-revealed class */
 .js .name-line .ch { transform: translateY(100%); opacity: 0; transition: transform 900ms var(--expo), opacity 900ms var(--expo); transition-delay: calc(var(--l) * 240ms + var(--c) * 52ms); }
 .js .hero-roles .line > span { transform: translateY(110%); opacity: 0; transition: transform 760ms var(--expo), opacity 760ms var(--expo); transition-delay: calc(200ms + var(--i) * 80ms); }
-.js .hero-side, .js .hero-mileo { opacity: 0; transition: opacity 520ms var(--expo) 400ms, transform 520ms var(--expo) 400ms; }
-.js .hero-side { transform: translateY(16px); }
-.js .hero-mileo { transform: translate(-50%, 3rem); transition-duration: 900ms; }
+.js .hero-side { opacity: 0; transform: translateY(16px); transition: opacity 520ms var(--expo) 400ms, transform 520ms var(--expo) 400ms; }
 .js .scroll-cue { opacity: 0; transition: opacity 520ms ease 900ms; }
 .is-revealed .name-line .ch, .is-revealed .hero-roles .line > span { transform: none; opacity: 1; }
 .is-revealed .hero-side, .is-revealed .scroll-cue { opacity: 1; transform: none; }
-.is-revealed .hero-mileo { opacity: 1; transform: translateX(-50%); }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   .js [data-rise], .js [data-split].is-split .split-line > span, .js .name-line .ch, .js .hero-roles .line > span, .js .hero-side, .js .scroll-cue { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .js .hero-mileo { opacity: 1; transform: translateX(-50%); transition: none; }
   .hall-info:not([hidden]) { animation: none; }
 }
 
@@ -387,6 +374,8 @@ details[open] > summary .dot, summary:hover .dot { background: var(--accent); tr
 .mileo-top p { font-size: 0.875rem; }
 .mileo-face { width: 5rem; flex: none; border-radius: 50%; background: rgba(255, 255, 255, 0.08); padding: 0.3rem; transition: transform 300ms var(--expo); }
 .mileo-face:active { transform: scale(0.94) rotate(-4deg); }
+.mileo-wx { margin-top: 1rem; padding: 0.6rem 0.9rem; border: 1px solid var(--line); border-radius: 0.75rem; font-size: 0.875rem; color: var(--muted); }
+.mileo-wx b { color: var(--foreground); font-weight: 600; }
 .mileo-says { margin: 1rem 0 0.9rem; padding: 0.75rem 0.95rem; border-radius: 1rem 1rem 1rem 0.25rem; background: rgba(255, 255, 255, 0.94); color: #0b1424; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; min-height: 3.2em; }
 .mileo-burst { position: absolute; left: 50%; top: 9rem; width: 0; height: 0; pointer-events: none; }
 .mileo-burst span { position: absolute; font-size: 1.6rem; animation: float-up 1.4s var(--expo) var(--d) both; }
@@ -413,7 +402,7 @@ details[open] > summary .dot, summary:hover .dot { background: var(--accent); tr
 @media (max-width: 640px) {
   .mileo-launch { min-height: 3.5rem; padding-right: 1rem; gap: 0.6rem; }
   .mileo-avatar { width: 3.9rem; height: 3.9rem; }
-  .mileo-label span { display: none; }
+  .mileo-label span { font-size: 0.75rem; }
   .mileo-bubble { font-size: 0.875rem; white-space: normal; width: max-content; max-width: 15rem; }
   .mileo { right: 0; left: 0; bottom: 0; width: auto; max-height: 88svh; border-radius: 1.5rem 1.5rem 0 0; padding: 1.25rem 16px max(1.25rem, env(safe-area-inset-bottom)); transform-origin: bottom center; transform: translateY(100%); }
   .mileo.is-open { transform: none; }

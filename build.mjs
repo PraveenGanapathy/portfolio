@@ -213,10 +213,6 @@ const html = `<!doctype html>
           <a class="pill pill-solid" href="${RESUME}" target="_blank" rel="noopener">Download résumé ${ARROW}</a>
         </div>
       </div>
-      <div class="hero-mileo">
-        <button class="hero-dog" type="button" aria-label="Say hi to Mileo, Praveen's dog-bot" data-open-mileo-hello>${dog()}</button>
-        <p class="wx-tag" aria-live="polite" hidden></p>
-      </div>
       <div class="hero-fade" aria-hidden="true"></div>
       <h1 class="hero-name" aria-label="${esc(basics.name)}">${page.heroName.map((w, i) => `<span class="name-line" style="--l:${i}" aria-hidden="true">${splitLetters(w)}</span>`).join("")}</h1>
       <p class="scroll-cue"><span aria-hidden="true"></span>Scroll to enter</p>
@@ -376,6 +372,7 @@ const html = `<!doctype html>
         <p class="muted">Praveen's very good dog-bot</p>
       </div>
     </div>
+    <p class="mileo-wx" hidden></p>
     <p class="mileo-says" aria-live="polite"></p>
     <div class="mileo-burst" aria-hidden="true"></div>
     <div class="mileo-tabs" role="tablist" aria-label="What to do with Mileo">

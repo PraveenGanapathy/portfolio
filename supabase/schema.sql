@@ -69,6 +69,33 @@ create trigger notes_limit before insert on public.notes for each row execute fu
 drop trigger if exists mileo_limit on public.mileo_events;
 create trigger mileo_limit before insert on public.mileo_events for each row execute function public.limit_per_visitor();
 
+-- Regions and sources appear on the public page, so only real values are accepted: a source from the
+-- fixed list backend.js uses, and a region that is one of its names or the city part of a real time zone.
+create or replace function public.check_place() returns trigger
+language plpgsql security definer set search_path = public, pg_catalog as $$
+declare city text := replace(new.region, ' ', '_');
+begin
+  if new.region not in ('India', 'Sri Lanka', 'UAE', 'US East', 'US Central', 'US Mountain', 'US West',
+                        'Canada East', 'Canada West', 'UK', 'Australia', 'Somewhere')
+     and not exists (select 1 from pg_timezone_names where right(name, length(city) + 1) = '/' || city) then
+    raise exception 'Unknown region';
+  end if;
+  if tg_table_name = 'visits' and new.source not in
+     ('Direct', 'LinkedIn', 'GitHub', 'Google', 'Bing', 'DuckDuckGo', 'X', 'Facebook', 'Reddit', 'Other') then
+    raise exception 'Unknown source';
+  end if;
+  return new;
+end $$;
+drop trigger if exists visits_place on public.visits;
+create trigger visits_place before insert on public.visits for each row execute function public.check_place();
+drop trigger if exists mileo_place on public.mileo_events;
+create trigger mileo_place before insert on public.mileo_events for each row execute function public.check_place();
+drop trigger if exists notes_place on public.notes;
+create trigger notes_place before insert on public.notes for each row execute function public.check_place();
+-- Older visits stored the raw referrer host or utm text; fold those into Other.
+update public.visits set source = 'Other'
+where source not in ('Direct', 'LinkedIn', 'GitHub', 'Google', 'Bing', 'DuckDuckGo', 'X', 'Facebook', 'Reddit', 'Other');
+
 -- ---------- public summaries ----------
 create or replace function public.visit_stats() returns json
 language sql stable security definer set search_path = public as $$

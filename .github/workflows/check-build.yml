@@ -1,0 +1,19 @@
+name: Check index.html is built
+
+# Fails (red X on the commit) when data.js or build.mjs changed but index.html was not regenerated.
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node build.mjs
+      - name: index.html must match data.js
+        run: git diff --exit-code index.html || { echo "::error::Run 'node build.mjs' and commit index.html"; exit 1; }
