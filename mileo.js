@@ -19,13 +19,14 @@
   const pick = (a) => a[Math.floor(Math.random() * a.length)];
 
   // ---------- open / close ----------
-  let lastFocus = null;
+  let lastFocus = null, toldWeather = false;
   const open = () => {
     lastFocus = document.activeElement;
     panel.hidden = false;
     requestAnimationFrame(() => panel.classList.add("is-open"));
     launcher.setAttribute("aria-expanded", "true");
-    say(pick(LINES.hello));
+    // The first hello is about the visitor's weather, when weather.js found it.
+    say(window.MileoWeather && !toldWeather ? ((toldWeather = true), window.MileoWeather.line) : pick(LINES.hello));
     refresh();
     $(".mileo-close").focus();
     B.store.set("pgr-mileo-met", "1");
@@ -68,6 +69,8 @@
     new IntersectionObserver(([e]) => { if (e.isIntersecting) pop("Shy? Tell me instead, no email needed 🐾", 6000); }, { threshold: 0.3 }).observe(contact);
   }
   document.querySelectorAll("[data-open-mileo]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); if (panel.hidden) open(); showTab("note"); }));
+  document.querySelectorAll("[data-open-mileo-hello]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); if (panel.hidden) open(); }));
+  addEventListener("mileo:weather", (e) => { TEASERS.unshift(e.detail.line); });
 
   // ---------- mood and speech ----------
   let moodTimer;

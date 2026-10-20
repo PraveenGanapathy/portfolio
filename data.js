@@ -9,7 +9,16 @@ const portfolioData = {
   },
   // Copy for the page's set pieces. Run `node build.mjs` after editing this file.
   page: {
-    hero: { top: "Data", accent: "pipeline", bottom: "engineer" },
+    // The giant two-line name in the hero, and the stacked words beside it.
+    heroName: ["Praveen", "Ganapathy"],
+    roles: ["Data Engineer", "Pipeline Builder", "ML Tinkerer", "Problem Solver"],
+    marquee: ["Reliable Pipelines", "Zero Data Loss", "Azure · SAP · Python", "Ship The Insight", "Stay Curious"],
+    stats: [
+      { value: "4TB", label: "Migrated with zero data loss" },
+      { value: "20+", label: "Azure Data Factory pipelines built" },
+      { value: "94.87%", label: "Accuracy, brain tumour model" },
+      { value: "3.97", label: "GPA, MS in Data Science" }
+    ],
     heroSentence: "Data engineer at the World Bank Group, building the pipelines behind its new budget planning systems.",
     heroInfo: [
       ["Azure · SAP · Python", "Data pipelines"],

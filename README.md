@@ -17,9 +17,9 @@ and commit `data.js` together with the regenerated `index.html`. No dependencies
 | `data.js` | Content: jobs, projects, education, certifications, and the page copy under `page` |
 | `build.mjs` | Writes `index.html` from `data.js` |
 | `style.css` | All styles |
-| `main.js` | Glass lens, project card deck, résumé-by-email form (EmailJS) |
+| `main.js` | Preloader, smooth-scroll hooks, text reveals, the Mirror Hall of projects, liquid photos, résumé-by-email form (EmailJS) |
+| `weather.js` | Dresses Mileo for the visitor's weather (umbrella, jacket and beanie, shades) and draws rain or snow over the hero |
 | `tools/preview.mjs` | Local preview with live reload: `node tools/preview.mjs` |
-| `liquid.js` | The animated azure liquid background (WebGL) |
 | `backend.js` | Supabase client: logs a visit, approximate region, traffic source |
 | `insights.js` | The "Who's visiting" stats and chart |
 | `mileo.js` | Mileo the dog-bot: feed, cuddle, leave a note |
@@ -47,6 +47,13 @@ To also get each note by email, create an EmailJS template that sends to you, us
 `{{message}}`, `{{reply_to}}` and `{{region}}`, and put its ID in `EMAILJS_NOTE_TEMPLATE_ID`.
 
 Regions come from the visitor's browser time zone; no IP addresses are stored.
+
+## Mileo's weather
+
+`weather.js` looks up the visitor's approximate city from their IP with GeoJS (get.geojs.io) and the current
+weather from Open-Meteo. Both are free and need no key. Nothing is stored except a 30-minute cache in the tab.
+Rain or a storm: umbrella. Snow: jacket and beanie. Below 5°C: jacket. Sunny: shades.
+Preview any outfit with `?weather=rain` (or `snow`, `storm`, `clear`, `cloudy`, `fog`; add `&night`).
 
 ## Photo credits
 
