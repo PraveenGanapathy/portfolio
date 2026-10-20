@@ -136,7 +136,13 @@ const dog = (cls = "") => `<svg class="mileo-dog ${cls}" viewBox="0 0 120 120" a
   </g>
 </svg>`;
 
-const splitLetters = (word) => [...word].map((ch, i) => `<span class="ch" style="--c:${i}">${esc(ch)}</span>`).join("");
+// Star field for the projects sky: n dots as box-shadows. Seeded, so rebuilding does not change index.html.
+const stars = (n, seed) => {
+  let s = seed;
+  const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  return Array.from({ length: n }, () => `${(rnd() * 100).toFixed(1)}vw ${(rnd() * 40).toFixed(1)}rem ${rnd() < 0.15 ? "#cfe6ff" : "#fff"}`).join(",");
+};
+const splitLetters =(word) => [...word].map((ch, i) => `<span class="ch" style="--c:${i}">${esc(ch)}</span>`).join("");
 
 const html = `<!doctype html>
 <html lang="en">
@@ -232,6 +238,10 @@ const html = `<!doctype html>
         <p class="head-label nums">${pad(d.projects.length)} / Projects</p>
       </div>
       <div class="hall" data-rise>
+        <div class="hall-sky" aria-hidden="true">
+          <span class="stars" style="box-shadow:${stars(70, 1)}"></span><span class="stars stars-b" style="box-shadow:${stars(110, 2)}"></span>
+          <span class="cloud" style="top:6%;--t:80s;--d:-10s"></span><span class="cloud" style="top:22%;--t:110s;--d:-60s;scale:0.7"></span><span class="cloud" style="top:12%;--t:95s;--d:-35s;scale:1.2"></span>
+        </div>
         <p class="hall-kicker">${esc(first)} · Collection Nº 01</p>
         <div class="hall-stage" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Projects. Drag, or use the arrow keys, to spin the hall.">
           <div class="hall-view"><ul class="hall-ring">${hallCards}

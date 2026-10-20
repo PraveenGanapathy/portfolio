@@ -108,6 +108,10 @@
     new IntersectionObserver(([e]) => { cancelAnimationFrame(raf); if (e.isIntersecting) raf = requestAnimationFrame(frame); }).observe(canvas);
   };
 
+  // Until the real weather arrives (or if it never does), day or night follows the visitor's clock.
+  const hour = new Date().getHours();
+  root.toggleAttribute("data-wx-day", hour >= 6 && hour < 18);
+
   const forced = params.get("weather");
   if (forced) apply({ kind: forced, city: "", temp: forced === "snow" ? -2 : null, day: !params.has("night") });
   else lookup().then(apply).catch(() => { /* offline or blocked: Mileo stays in his usual coat */ });
