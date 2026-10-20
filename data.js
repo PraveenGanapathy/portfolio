@@ -1,7 +1,6 @@
 const portfolioData = {
   basics: {
     name: "Praveen Ganapathy Ravi",
-    title: "Data Engineer",
     email: "erpraveenganapathy@gmail.com",
     linkedin: "linkedin.com/in/pravi01",
     github: "github.com/PraveenGanapathy",
@@ -37,7 +36,6 @@ const portfolioData = {
   },
 
   contact: {
-    email: "erpraveenganapathy@gmail.com",
     location: "Washington, DC"
   },
 

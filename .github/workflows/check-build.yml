@@ -1,6 +1,7 @@
 name: Check index.html is built
 
-# Fails (red X on the commit) when data.js or build.mjs changed but index.html was not regenerated.
+# Fails (red X on the commit) when data.js or build.mjs changed but index.html was not regenerated,
+# or when supabase/schema.sql no longer runs or stops accepting normal rows.
 on:
   push:
   pull_request:
@@ -17,3 +18,24 @@ jobs:
       - run: node build.mjs
       - name: index.html must match data.js
         run: git diff --exit-code index.html || { echo "::error::Run 'node build.mjs' and commit index.html"; exit 1; }
+
+  schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 2s --health-timeout 5s --health-retries 20
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+      # Supabase provides the anon role; plain Postgres does not.
+      - run: psql -v ON_ERROR_STOP=1 -c "create role anon"
+      - run: psql -v ON_ERROR_STOP=1 -f supabase/schema.sql
+      - run: psql -v ON_ERROR_STOP=1 -f supabase/test.sql

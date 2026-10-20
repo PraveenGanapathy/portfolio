@@ -1,4 +1,3 @@
-<!-- filepath: /Users/Praveen/Library/CloudStorage/OneDrive-UniversityofMassachusettsDartmouth/MAC/Downloads/Portfolio_pg/robots.txt -->
 User-agent: *
 Allow: /
 

@@ -5,7 +5,7 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { watch } from "node:fs";
 import { execFile } from "node:child_process";
-import { extname, join, normalize, resolve } from "node:path";
+import { extname, join, normalize, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(process.argv[2] || fileURLToPath(new URL("..", import.meta.url)));
@@ -64,7 +64,7 @@ createServer(async (req, res) => {
   let path = decodeURIComponent(url.pathname).replace(/^\/portfolio/, "") || "/";
   if (path.endsWith("/")) path += "index.html";
   const file = normalize(join(root, path));
-  if (!file.startsWith(root)) { res.writeHead(403); return res.end(); }
+  if (!file.startsWith(root + sep)) { res.writeHead(403); return res.end(); }
   try {
     let body = await readFile(file);
     const type = types[extname(file)] || "application/octet-stream";

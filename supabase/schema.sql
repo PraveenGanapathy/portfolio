@@ -80,9 +80,11 @@ begin
      and not exists (select 1 from pg_timezone_names where right(name, length(city) + 1) = '/' || city) then
     raise exception 'Unknown region';
   end if;
-  if tg_table_name = 'visits' and new.source not in
-     ('Direct', 'LinkedIn', 'GitHub', 'Google', 'Bing', 'DuckDuckGo', 'X', 'Facebook', 'Reddit', 'Other') then
-    raise exception 'Unknown source';
+  -- Nested on purpose: only visits has a source column, and "a and new.source" would read it on every table.
+  if tg_table_name = 'visits' then
+    if new.source not in ('Direct', 'LinkedIn', 'GitHub', 'Google', 'Bing', 'DuckDuckGo', 'X', 'Facebook', 'Reddit', 'Other') then
+      raise exception 'Unknown source';
+    end if;
   end if;
   return new;
 end $$;

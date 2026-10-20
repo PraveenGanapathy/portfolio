@@ -24,6 +24,7 @@ and commit `data.js` together with the regenerated `index.html`. No dependencies
 | `insights.js` | The "Who's visiting" stats and chart |
 | `mileo.js` | Mileo the dog-bot: feed, cuddle, leave a note |
 | `supabase/schema.sql` | Database tables, security rules and summary functions |
+| `supabase/test.sql` | Checks run by GitHub after `schema.sql` on every push (normal rows accepted, made-up ones refused) |
 | `env-config.js` | EmailJS IDs, résumé link, and `MAINTENANCE_MODE` (see `MAINTENANCE.md`) |
 | `images/projects/` | Screen recordings of each project (`.mp4`) with poster frames (`.jpg`) |
 | `assets/` | Place photographs and their licences (`credits.json`) |

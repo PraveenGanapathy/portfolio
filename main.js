@@ -26,7 +26,8 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
     root.classList.add("is-revealed");
     if (window.lenis) window.lenis.start();
     // The counter starts at the top; a link to a section (…/#projects) should still land there.
-    const target = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    let target = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if (target && target.closest(".hall-info")) target = document.getElementById("projects"); // the hall shows that project
     if (target) window.lenis ? window.lenis.scrollTo(target, { immediate: true }) : target.scrollIntoView();
   };
   if (!pre || !root.classList.contains("is-loading")) { done(); return; }
@@ -138,7 +139,7 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
   const water = document.querySelector("#water feTurbulence");
   const waterMap = document.querySelector("#water feDisplacementMap");
   const STEP = 0.27; // radians between neighbouring cards
-  let gap = 1, radius = 0, pos = 0, vel = 0, target = null, current = -1, front = -1, tracked = 0, inView = false, raf = 0;
+  let gap = 1, radius = 0, pos = 0, vel = 0, target = null, current = -1, front = -1, tracked = 0, inView = false, raf = 0, still = false;
 
   const layout = () => {
     gap = cards[0].offsetWidth * 1.08;
@@ -186,21 +187,21 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
       if (target === null) { pos += vel; vel *= 0.94; if (Math.abs(vel) < 0.02) target = Math.round(pos); }
       else { vel = (vel + (target - pos) * 0.07) * 0.8; pos += vel; }
     }
-    render();
+    if (!still) render(); // at rest only the water moves
     t += 0.02;
     if (!reduceMotion) {
       water.setAttribute("baseFrequency", `0.004 ${(0.06 + Math.sin(t) * 0.012).toFixed(4)}`);
       waterMap.setAttribute("scale", (16 + Math.min(40, Math.abs(vel) * 60)).toFixed(1));
     }
     const settled = target !== null && Math.abs(target - pos) < 0.002 && Math.abs(vel) < 0.002;
-    if (settled && !dragging) {
-      pos = target; render();
+    if (settled && !dragging && !still) {
+      pos = target; render(); still = true;
       // Count a project as viewed once the hall comes to rest on it, not for every card spun past.
       if (current !== tracked) { tracked = current; track("view_project", { event_category: "engagement", event_label: projects[current].textContent.trim() }); }
     }
     if (inView && (!settled || dragging || !reduceMotion)) raf = requestAnimationFrame(tick);
   };
-  const run = () => { if (!raf && inView) raf = requestAnimationFrame(tick); };
+  const run = () => { still = false; if (!raf && inView) raf = requestAnimationFrame(tick); };
   // Go to project i by the shortest way round, whichever copy of it is nearest.
   const go = (i) => {
     let best = null;
@@ -253,6 +254,9 @@ const track = (name, params) => { if (typeof window.gtag === "function") window.
   }).observe(stage);
   addEventListener("resize", layout);
   layout();
+  // Old links like …/#project-3 open the hall on that project.
+  const linked = location.hash.match(/^#project-(\d+)$/);
+  if (linked && linked[1] >= 1 && linked[1] <= N) { pos = Number(linked[1]) - 1; tracked = pos; render(); }
 })();
 
 // Liquid images: on hover the photo ripples (its own SVG displacement filter, driven by a loose spring).
