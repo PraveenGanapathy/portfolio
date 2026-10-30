@@ -18,11 +18,11 @@ and commit `data.js` together with the regenerated `index.html`. No dependencies
 | `build.mjs` | Writes `index.html` from `data.js` |
 | `style.css` | All styles |
 | `main.js` | Preloader, smooth-scroll hooks, text reveals, the Mirror Hall of projects, liquid photos, résumé-by-email form (EmailJS) |
-| `weather.js` | Dresses Mileo for the visitor's weather (umbrella, jacket and beanie, shades) and draws rain or snow over the hero |
+| `weather.js` | Dresses Milo for the visitor's weather (umbrella, jacket and beanie, shades) and draws rain or snow over the hero |
 | `tools/preview.mjs` | Local preview with live reload: `node tools/preview.mjs` |
 | `backend.js` | Supabase client: logs a visit, approximate region, traffic source |
 | `insights.js` | The "Who's visiting" stats and chart |
-| `mileo.js` | Mileo the dog-bot: feed, cuddle, leave a note |
+| `mileo.js` | Milo the dog-bot: feed, cuddle, leave a note |
 | `supabase/schema.sql` | Database tables, security rules and summary functions |
 | `supabase/test.sql` | Checks run by GitHub after `schema.sql` on every push (normal rows accepted, made-up ones refused) |
 | `env-config.js` | EmailJS IDs, résumé link, and `MAINTENANCE_MODE` (see `MAINTENANCE.md`) |
@@ -35,7 +35,7 @@ GitHub → this repo → **Actions** → **Maintenance mode** → **Run workflow
 It also works from the GitHub mobile app, or from a terminal: `gh workflow run maintenance.yml -f mode=on`.
 The site switches about a minute later.
 
-## Visitor stats and Mileo (Supabase)
+## Visitor stats and Milo (Supabase)
 
 1. Create a free project at https://supabase.com.
 2. In the project: **SQL Editor** → New query → paste `supabase/schema.sql` → **Run**.
@@ -54,11 +54,11 @@ changing `schema.sql`, run the whole file again in the SQL Editor (it is safe to
 Spam protection for email: in the EmailJS dashboard, set **Account → Security → Allowed origins** to
 `https://praveenganapathy.github.io`, and turn on its rate limit, so nobody can use up the monthly quota.
 
-## Mileo's weather
+## Milo's weather
 
 `weather.js` guesses the visitor's city and state from their IP with GeoJS (get.geojs.io) and gets the current
 weather from Open-Meteo. Both are free and need no key. Nothing is stored except a 30-minute cache in the tab.
-The small Mileo in the corner shows it under his name (for example "☔ Rain · 47°F · Lawton"), and his panel
+The small Milo in the corner shows it under his name (for example "Rain, 47°F, Lawton"), and his panel
 shows the full guess. Rain or a storm: umbrella. Snow: jacket and beanie. Below 5°C: jacket. Sunny: shades.
 Preview any outfit with `?weather=rain` (or `snow`, `storm`, `clear`, `cloudy`, `fog`; add `&night`).
 

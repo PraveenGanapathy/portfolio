@@ -4,22 +4,22 @@ const portfolioData = {
     email: "erpraveenganapathy@gmail.com",
     linkedin: "linkedin.com/in/pravi01",
     github: "github.com/PraveenGanapathy",
-    about: "I build the pipelines that move financial, budget and HR data out of SAP, REST APIs, SFTP drops and ODBC sources and into the World Bank's new Budget Planning Systems. Before that I migrated 4TB of production data at Infosys without losing a row, built AI automation agents at Goodie Bag, and finished an MS in Data Science at UMass Dartmouth with a 3.97 GPA."
+    about: "I build the pipelines that move financial, budget and HR data out of SAP, REST APIs, SFTP drops and ODBC sources and into planning and reporting systems. Before that I migrated 4TB of production data at Infosys without losing a row, built AI automation agents at Goodie Bag, and finished an MS in Data Science at UMass Dartmouth with a 3.97 GPA."
   },
   // Copy for the page's set pieces. Run `node build.mjs` after editing this file.
   page: {
     // The giant two-line name in the hero, and the stacked words beside it.
     heroName: ["Praveen", "Ganapathy"],
     roles: ["Data Engineer", "Pipeline Builder", "ML Tinkerer", "Problem Solver"],
-    marquee: ["Reliable Pipelines", "Zero Data Loss", "Azure · SAP · Python", "Ship The Insight", "Stay Curious"],
+    marquee: ["Reliable Pipelines", "Zero Data Loss", "Azure, SAP, Python", "Ship The Insight", "Stay Curious"],
     stats: [
       { value: "4TB", label: "Migrated with zero data loss" },
       { value: "20+", label: "Azure Data Factory pipelines built" },
       { value: "94.87%", label: "Accuracy, brain tumour model" },
       { value: "3.97", label: "GPA, MS in Data Science" }
     ],
-    heroSentence: "Data engineer at the World Bank Group, building the pipelines behind its new budget planning systems.",
-    intro: { before: "I'm Praveen. I build", accent: "reliable", after: "pipelines for the World Bank's budget data." },
+    heroSentence: "Data engineer building the pipelines that move financial, budget and HR data into planning systems.",
+    intro: { before: "I'm Praveen. I build", accent: "reliable", after: "pipelines for finance and budget data." },
     facts: [
       { label: "Based in", value: "Washington, DC" },
       { label: "Working since", value: "2020" },
@@ -199,7 +199,7 @@ const portfolioData = {
       ]
     },
     {
-      title: "Career Ambassador – Data engineer",
+      title: "Career Ambassador, Data engineer",
       company: "University of Massachusetts Dartmouth",
       period: "Sep 2024 – May 2025",
       location: "Dartmouth, MA",
@@ -211,7 +211,7 @@ const portfolioData = {
       ]
     },
     {
-      title: "Grader – MTH 280: Scientific Computation",
+      title: "Grader for MTH 280: Scientific Computation",
       company: "University of Massachusetts Dartmouth",
       period: "Jan 2025 – May 2025",
       location: "Dartmouth, MA",
@@ -221,7 +221,7 @@ const portfolioData = {
       ]
     },
     {
-      title: "Grader – DSC 520: High Performance Computing",
+      title: "Grader for DSC 520: High Performance Computing",
       company: "University of Massachusetts Dartmouth",
       period: "Sep 2024 – Dec 2024",
       location: "Dartmouth, MA",
@@ -236,7 +236,7 @@ const portfolioData = {
       period: "Jun 2021 – Jan 2024",
       location: "Chennai, India",
       details: [
-        "Designed and executed robust ETL pipelines to migrate 4TB of production data from SQL Azure Virtual Machines to Azure Managed Instances, ensuring zero data loss and improved query performance across client-facing analytics systems. (NTT Data)",
+        "Designed and executed ETL pipelines to migrate 4TB of production data from SQL Azure Virtual Machines to Azure Managed Instances, ensuring zero data loss and improved query performance across client-facing analytics systems. (NTT Data)",
         "Led backend data engineering efforts for telecom applications at TalkTalk Business (UK), including legacy modernization from Zend/Symfony PHP stacks to newer frameworks.",
         "Built and maintained CI/CD pipelines using Bamboo, GitLab, and Azure DevOps, reducing deployment time by 40% and enhancing release stability.",
         "Managed SEO domain migration and infrastructure consolidation projects, maintaining over 99% data integrity and minimizing service disruption during large-scale rollouts.",
@@ -269,7 +269,7 @@ const portfolioData = {
       description: "Developed an MRI-based Convolutional Neural Network (CNN) classification system using EfficientNet and other pretrained models, achieving 94.87% accuracy in brain tumor detection. Deployed a Streamlit interface for live inference, enhancing clinical decision-making utility for healthcare professionals.",
     },
     {
-      title: "DocViz – Interactive Document Clustering",
+      title: "DocViz: Interactive Document Clustering",
       kind: "NLP and visualization",
       period: "Spring 2025",
       association: "University of Massachusetts Dartmouth",
@@ -305,7 +305,7 @@ const portfolioData = {
       description: "Built a comprehensive data pipeline using Apache Airflow, Papermill, and Streamlit to analyze FAA flight delay data. The system utilizes AWS S3 for scalable data storage and Docker for deployment orchestration, providing insights into delay patterns and operational efficiency across airlines and airports.",
     },
     {
-      title: "SimuChat – AI Roleplay Game (Hackathon Winner)",
+      title: "SimuChat: AI Roleplay Game (Hackathon Winner)",
       kind: "LLM game",
       period: "Fall 2024",
       association: "Jia.Seed Hackathon",
