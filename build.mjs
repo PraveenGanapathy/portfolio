@@ -10,13 +10,12 @@ const { basics, page } = d;
 const esc = (s = "") => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const breakable = (s) => esc(s).replace(/([@/])/g, "$1<wbr>");
 const yearOf = (period) => (period.match(/\d{4}/g) || []).pop() || "";
-const shortPeriod = (p) => p.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w* /g, "$1 ").replace("Present", "now");
+const range = (p) => p.replace(" – ", " to ");
+const shortPeriod = (p) => range(p).replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w* /g, "$1 ").replace("Present", "now");
 const pad = (n) => String(n).padStart(2, "0");
 const ext = (href, text, cls = "link") => `<a class="${cls}" href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>`;
 const RESUME = "https://praveenganapathy.github.io/online-resume/PraveenGanapathyRavi_Resume.pdf";
 const ARROW = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const eyebrow = (text) => `<p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>${esc(text)}</p>`;
-const [first, ...rest] = basics.name.split(" ");
 const initials = basics.name.split(" ").slice(0, 2).map((w) => w[0]).join("");
 
 // ---------- projects: the mirror hall (a draggable 3D ring) ----------
@@ -34,14 +33,14 @@ const hallInfo = d.projects.map((p, i) => `
                 <p class="hall-brief">${esc(p.brief)}</p>
               </div>
               <div class="hall-meta">
-                <p class="nums">${esc(p.period)}</p>
-                <p class="accent">${esc(p.kind)}${/Hackathon Winner/.test(p.title) ? " · 1st place" : ""}</p>
+                <p class="nums">${esc(range(p.period))}</p>
+                <p class="accent">${esc(p.kind)}${/Hackathon Winner/.test(p.title) ? ", 1st place" : ""}</p>
               </div>
             </div>
             <details class="card-more">
               <summary>More about this project</summary>
               <p>${esc(p.description)}</p>
-              <p class="muted">${esc(p.association)}, ${esc(p.period)}. Built with ${esc(p.skills.join(", "))}.</p>
+              <p class="muted">${esc(p.association)}, ${esc(range(p.period))}. Built with ${esc(p.skills.join(", "))}.</p>
             </details>
             <p class="card-links">${ext(p.repo, "Source code", "pill")}${p.demo ? ext(p.demo, "Live demo", "pill pill-solid") : ""}</p>
           </article>`).join("");
@@ -61,7 +60,7 @@ const place = (label) => {
 const job = (e) => `
               <li>
                 <details>
-                  <summary><span class="dot" aria-hidden="true"></span><span class="row-name"><strong>${esc(e.title)}</strong> · ${esc(e.company)}</span><span class="row-value nums">${esc(shortPeriod(e.period))}</span></summary>
+                  <summary><span class="toggle" aria-hidden="true">+</span><span class="row-name"><strong>${esc(e.title)}</strong>, ${esc(e.company)}</span><span class="row-value nums">${esc(shortPeriod(e.period))}</span></summary>
                   <div class="row-body">
                     <p class="muted">${esc(e.location)}</p>
                     <ul class="bullets">${e.details.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
@@ -85,20 +84,20 @@ const groups = [
 const edu = d.education.map((e) => `
               <li>
                 <details>
-                  <summary><span class="dot" aria-hidden="true"></span><span class="row-name"><strong>${esc(e.degree)}</strong> · ${esc(e.institution)}</span><span class="row-value nums">${esc(shortPeriod(e.period))}</span></summary>
+                  <summary><span class="toggle" aria-hidden="true">+</span><span class="row-name"><strong>${esc(e.degree)}</strong>, ${esc(e.institution)}</span><span class="row-value nums">${esc(shortPeriod(e.period))}</span></summary>
                   <div class="row-body">
-                    <p class="muted">${esc(e.location)} · GPA ${esc(e.gpa)}</p>
+                    <p class="muted">${esc(e.location)}, GPA ${esc(e.gpa)}</p>
                     <ul class="bullets">${e.highlights.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
                     <p class="muted">Courses: ${esc(e.courses.join(", "))}.</p>
                   </div>
                 </details>
               </li>`).join("");
 const certs = d.certifications.map((c) => `
-              <li class="plain"><span class="row-name">${c.credentialLink ? ext(c.credentialLink, c.title) : esc(c.title)} · ${esc(c.issuer)}</span><span class="row-value nums">${esc(c.date)}</span></li>`).join("");
+              <li class="plain"><span class="row-name">${c.credentialLink ? ext(c.credentialLink, c.title) : esc(c.title)}, ${esc(c.issuer)}</span><span class="row-value nums">${esc(c.date)}</span></li>`).join("");
 const tools = d.skills.categories.map((c) => `
               <li class="tool"><h4>${esc(c.title)}</h4><p>${c.skills.map((s) => `<span class="tag">${esc(s)}</span>`).join("")}</p></li>`).join("");
 
-// Mileo. The wx-* layers are his weather outfits; weather.js picks one from the visitor's local weather.
+// Milo. The wx-* layers are his weather outfits; weather.js picks one from the visitor's local weather.
 const dog = (cls = "") => `<svg class="mileo-dog ${cls}" viewBox="0 0 120 120" aria-hidden="true">
   <g class="wx wx-umbrella">
     <path d="M60 -14V62" stroke="#cfe6ff" stroke-width="3" stroke-linecap="round"/>
@@ -136,11 +135,12 @@ const dog = (cls = "") => `<svg class="mileo-dog ${cls}" viewBox="0 0 120 120" a
   </g>
 </svg>`;
 
-// Star field for the projects sky: n dots as box-shadows. Seeded, so rebuilding does not change index.html.
+// Star field for the page sky: n dots as box-shadows across the screen, coloured by the stylesheet. Seeded, so rebuilding does not change index.html.
 const stars = (n, seed) => {
   let s = seed;
   const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
-  return Array.from({ length: n }, () => `${(rnd() * 100).toFixed(1)}vw ${(rnd() * 40).toFixed(1)}rem ${rnd() < 0.15 ? "#cfe6ff" : "#fff"}`).join(",");
+  // the third rnd() once picked a tint; it stays so the stars keep their places
+  return Array.from({ length: n }, () => { const x = rnd(), y = rnd(); rnd(); return `${(x * 100).toFixed(1)}vw ${(y * 100).toFixed(1)}vh`; }).join(",");
 };
 const splitLetters =(word) => [...word].map((ch, i) => `<span class="ch" style="--c:${i}">${esc(ch)}</span>`).join("");
 
@@ -209,19 +209,26 @@ const html = `<!doctype html>
     </ul>
   </div>
 
+  <!-- the sky behind the whole page, set by the visitor's weather: weather.js sets data-wx (clear, cloudy, fog, rain, storm, snow) and data-wx-day -->
+  <div class="sky" aria-hidden="true">
+    <span class="stars" style="box-shadow:${stars(90, 1)}"></span><span class="stars stars-b" style="box-shadow:${stars(140, 2)}"></span>
+    <span class="cloud cloud-lone" style="top:8%;--t:80s;--d:-10s"></span><span class="cloud" style="top:30%;--t:110s;--d:-60s;scale:0.7"></span><span class="cloud" style="top:55%;--t:95s;--d:-35s;scale:1.2"></span><span class="cloud" style="top:78%;--t:120s;--d:-85s;scale:0.9"></span>
+    <span class="haze"></span>
+    <canvas class="weather"></canvas>
+  </div>
+
   <main>
     <section class="hero" id="top" aria-label="Introduction">
-      <canvas class="weather" aria-hidden="true"></canvas>
+      <span class="sun" aria-hidden="true"></span><span class="moon" aria-hidden="true"></span>
       <div class="hero-top">
         <h2 class="hero-roles">${page.roles.map((r, i) => `<span class="line"><span style="--i:${i}">${esc(r)}</span></span>`).join("")}</h2>
         <div class="hero-side">
           <p class="hero-desc">${esc(page.heroSentence)}</p>
-          <a class="pill pill-solid" href="${RESUME}" target="_blank" rel="noopener">Download résumé ${ARROW}</a>
+          <a class="pill pill-solid" href="https://praveenganapathy.github.io/online-resume/resume.html" target="_blank" rel="noopener">Download résumé ${ARROW}</a>
         </div>
       </div>
       <div class="hero-fade" aria-hidden="true"></div>
       <h1 class="hero-name" aria-label="${esc(basics.name)}">${page.heroName.map((w, i) => `<span class="name-line" style="--l:${i}" aria-hidden="true">${splitLetters(w)}</span>`).join("")}</h1>
-      <p class="scroll-cue"><span aria-hidden="true"></span>Scroll to enter</p>
     </section>
 
     <section class="marquee" aria-label="What I care about">
@@ -232,17 +239,12 @@ const html = `<!doctype html>
     <section class="hall-section" id="projects" aria-labelledby="projects-head">
       <div class="section-head">
         <div>
-          ${eyebrow("Selected Projects")}
           <h2 id="projects-head" class="heading" data-split>The things I have built.</h2>
         </div>
         <p class="head-label nums">${pad(d.projects.length)} / Projects</p>
       </div>
       <div class="hall" data-rise>
-        <div class="hall-sky" aria-hidden="true">
-          <span class="stars" style="box-shadow:${stars(70, 1)}"></span><span class="stars stars-b" style="box-shadow:${stars(110, 2)}"></span>
-          <span class="cloud" style="top:6%;--t:80s;--d:-10s"></span><span class="cloud" style="top:22%;--t:110s;--d:-60s;scale:0.7"></span><span class="cloud" style="top:12%;--t:95s;--d:-35s;scale:1.2"></span>
-        </div>
-        <p class="hall-kicker">${esc(first)} · Collection Nº 01</p>
+        <div class="hall-sky" aria-hidden="true"></div>
         <div class="hall-stage" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Projects. Drag, or use the arrow keys, to spin the hall.">
           <div class="hall-view"><ul class="hall-ring">${hallCards}
           </ul></div>
@@ -261,7 +263,6 @@ const html = `<!doctype html>
 
     <section class="story" id="story" aria-labelledby="story-head">
       <div>
-        ${eyebrow("The Story")}
         <h2 id="story-head" class="heading" data-split>${esc(page.intro.before)} ${esc(page.intro.accent)} ${esc(page.intro.after)}</h2>
         <p class="lead" data-rise>${esc(basics.about)}</p>
         <dl class="facts" data-rise style="--d:1">${page.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join("")}</dl>
@@ -273,7 +274,6 @@ const html = `<!doctype html>
     </section>
 
     <section class="impact" id="impact" aria-labelledby="impact-head">
-      ${eyebrow("By The Numbers")}
       <h2 id="impact-head" class="heading" data-split>The work, measured.</h2>
       <dl class="stats">${page.stats.map((s, i) => `
         <div data-rise style="--d:${i}"><dd class="stat-figure nums">${esc(s.value)}</dd><dt>${esc(s.label)}</dt></div>`).join("")}
@@ -281,7 +281,6 @@ const html = `<!doctype html>
     </section>
 
     <section class="career" id="work" aria-labelledby="work-head">
-      ${eyebrow("Experience")}
       <h2 id="work-head" class="heading" data-split>Where I have worked.</h2>
       <ul class="groups">${groups}
         <li class="group" data-rise>
@@ -296,14 +295,13 @@ const html = `<!doctype html>
         </li>
       </ul>
       <div class="tools" data-rise>
-        <h3 class="group-label">Tools</h3>
+        <h3 class="tools-head">Tools</h3>
         <ul class="tool-grid">${tools}
         </ul>
       </div>
     </section>
 
     <section class="visitors" id="visitors" aria-labelledby="visitors-head" hidden>
-      ${eyebrow("Live")}
       <h2 id="visitors-head" class="heading">Who's visiting.</h2>
       <div class="v-grid">
         <div class="v-card v-main">
@@ -328,9 +326,8 @@ const html = `<!doctype html>
     </section>
 
     <footer class="contact" id="contact" aria-labelledby="contact-head">
-      ${eyebrow("Let's Build")}
       <h2 id="contact-head" class="heading heading-xl" data-split>Have data that needs somewhere to go?</h2>
-      <p class="lead" data-rise>I read every message I'm sent. Rather stay anonymous? Leave a note with Mileo.</p>
+      <p class="lead" data-rise>I read every message I'm sent. Rather stay anonymous? Leave a note with Milo.</p>
       <a class="mail" href="mailto:${esc(basics.email)}?subject=${encodeURIComponent("Hello from your portfolio")}" data-rise>${breakable(basics.email)} <span class="accent" aria-hidden="true">↗</span></a>
       <div class="contact-grid">
         <div class="contact-card" data-rise>
@@ -347,13 +344,12 @@ const html = `<!doctype html>
           <li><a href="https://${esc(basics.github)}" target="_blank" rel="noopener"><span>GitHub</span><span class="muted">${breakable(basics.github)}</span></a></li>
           <li><a href="${RESUME}" target="_blank" rel="noopener"><span>Résumé</span><span class="muted">PDF</span></a></li>
           <li><span><span>Based in</span><span class="muted">${esc(d.contact.location)}</span></span></li>
-          <li><a href="#mileo" data-open-mileo><span>Rather not share your details?</span><span class="muted">Tell Mileo 🐾</span></a></li>
+          <li><a href="#mileo" data-open-mileo><span>Rather not share your details?</span><span class="muted">Tell Milo</span></a></li>
         </ul>
       </div>
       <div class="foot-bar">
         <div>
           <p class="signature">${esc(page.heroName.join(" "))}</p>
-          <p class="eyebrow-text">Designed &amp; built in ${esc(d.contact.location)}.</p>
         </div>
         <nav aria-label="Social">
           <ul class="socials">
@@ -362,44 +358,44 @@ const html = `<!doctype html>
             <li><a href="#top">Back to top</a></li>
           </ul>
         </nav>
-        <p class="eyebrow-text copy">© ${new Date().getFullYear()} ${esc(basics.name)}. All rights reserved.</p>
+        <p class="eyebrow-text copy">© ${esc(basics.name)}. All rights reserved.</p>
       </div>
     </footer>
   </main>
 
-  <button class="mileo-launch" type="button" aria-controls="mileo" aria-expanded="false" aria-label="Talk to Mileo, Praveen's dog-bot: feed him, cuddle him or leave Praveen a note">
+  <button class="mileo-launch" type="button" aria-controls="mileo" aria-expanded="false" aria-label="Talk to Milo, Praveen's dog-bot: feed him, cuddle him or leave Praveen a note">
     <span class="mileo-avatar">${dog()}</span>
-    <span class="mileo-label"><strong>Mileo</strong><span>Feed me · leave a note</span></span>
+    <span class="mileo-label"><strong>Milo</strong><span>Feed me or leave a note</span></span>
     <span class="mileo-badge" aria-hidden="true">1</span>
-    <span class="mileo-bubble" aria-hidden="true">Woof! I'm Mileo 👋</span>
+    <span class="mileo-bubble" aria-hidden="true">Woof! I'm Milo</span>
   </button>
   <div class="mileo" id="mileo" role="dialog" aria-labelledby="mileo-title" hidden>
-    <button class="mileo-close round" type="button" aria-label="Close Mileo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <button class="mileo-close round" type="button" aria-label="Close Milo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
     <div class="mileo-top">
-      <button class="mileo-face" type="button" aria-label="Pet Mileo">${dog("big")}</button>
+      <button class="mileo-face" type="button" aria-label="Pet Milo">${dog("big")}</button>
       <div>
-        <h2 id="mileo-title">Mileo</h2>
+        <h2 id="mileo-title">Milo</h2>
         <p class="muted">Praveen's very good dog-bot</p>
       </div>
     </div>
     <p class="mileo-wx" hidden></p>
     <p class="mileo-says" aria-live="polite"></p>
     <div class="mileo-burst" aria-hidden="true"></div>
-    <div class="mileo-tabs" role="tablist" aria-label="What to do with Mileo">
+    <div class="mileo-tabs" role="tablist" aria-label="What to do with Milo">
       <button type="button" role="tab" id="tab-feed" data-tab="feed" aria-controls="mp-feed" aria-selected="true">Feed</button>
       <button type="button" role="tab" id="tab-cuddle" data-tab="cuddle" aria-controls="mp-cuddle" aria-selected="false" tabindex="-1">Cuddle</button>
       <button type="button" role="tab" id="tab-note" data-tab="note" aria-controls="mp-note" aria-selected="false" tabindex="-1">Leave a note</button>
     </div>
     <div class="mileo-pane" id="mp-feed" role="tabpanel" aria-labelledby="tab-feed">
       <div class="food">
-        <button type="button" data-food="bone"><span aria-hidden="true">🦴</span>Bone</button>
-        <button type="button" data-food="kibble"><span aria-hidden="true">🥣</span>Kibble</button>
-        <button type="button" data-food="carrot"><span aria-hidden="true">🥕</span>Carrot</button>
-        <button type="button" data-food="cookie"><span aria-hidden="true">🍪</span>Cookie</button>
+        <button type="button" data-food="bone">Bone</button>
+        <button type="button" data-food="kibble">Kibble</button>
+        <button type="button" data-food="carrot">Carrot</button>
+        <button type="button" data-food="cookie">Cookie</button>
       </div>
     </div>
     <div class="mileo-pane" id="mp-cuddle" role="tabpanel" aria-labelledby="tab-cuddle" hidden>
-      <button class="mileo-cuddle pill pill-solid" type="button">Give Mileo a cuddle <span aria-hidden="true">🤗</span></button>
+      <button class="mileo-cuddle pill pill-solid" type="button">Give Milo a cuddle</button>
     </div>
     <div class="mileo-pane" id="mp-note" role="tabpanel" aria-labelledby="tab-note" hidden>
       <form class="mileo-note" novalidate>
@@ -407,13 +403,13 @@ const html = `<!doctype html>
         <textarea id="mileo-message" name="message" rows="3" maxlength="1000" required placeholder="Hi Praveen, loved your pipeline work…"></textarea>
         <label for="mileo-reply">Your email <span class="muted">(only if you want a reply)</span></label>
         <input id="mileo-reply" name="reply" type="email" autocomplete="email" placeholder="optional">
-        <button class="pill pill-solid" type="submit">Give the note to Mileo</button>
+        <button class="pill pill-solid" type="submit">Give the note to Milo</button>
         <p class="mileo-note-status" role="status" aria-live="polite"></p>
       </form>
     </div>
     <div class="mileo-foot">
       <p class="mileo-status"></p>
-      <p class="mileo-counts"><span aria-hidden="true">🦴</span> <span class="mileo-feeds nums">0</span> meals · <span aria-hidden="true">💙</span> <span class="mileo-cuddles nums">0</span> cuddles</p>
+      <p class="mileo-counts"><span class="mileo-feeds nums">0</span> meals, <span class="mileo-cuddles nums">0</span> cuddles</p>
     </div>
   </div>
 
@@ -429,7 +425,8 @@ const html = `<!doctype html>
       const lenis = new Lenis({ smoothWheel: true });
       window.lenis = lenis;
       if (document.documentElement.classList.contains("is-loading")) lenis.stop();
-      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+      // the weather sky draws right after Lenis moves the page, so snow on the name never lags a frame behind
+      const raf = (t) => { lenis.raf(t); if (window.skyFrame) window.skyFrame(); requestAnimationFrame(raf); };
       requestAnimationFrame(raf);
     }
   </script>

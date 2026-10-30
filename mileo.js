@@ -1,4 +1,4 @@
-// Mileo, Praveen's dog-bot: feed him, cuddle him, or give him a note to carry to Praveen.
+// Milo, Praveen's dog-bot: feed him, cuddle him, or give him a note to carry to Praveen.
 (() => {
   const launcher = document.querySelector(".mileo-launch");
   const panel = document.getElementById("mileo");
@@ -11,7 +11,7 @@
   const FOOD = { bone: "🦴", kibble: "🥣", carrot: "🥕", cookie: "🍪" };
   const FOOD_NAME = { bone: "a bone", kibble: "a bowl of kibble", carrot: "a carrot", cookie: "a cookie" };
   const LINES = {
-    hello: ["Woof! I'm Mileo. Praveen is busy building pipelines, so I'm on duty.", "Hi friend! Got snacks? I accept snacks.", "Woof woof! Want to leave Praveen a note? I'm a very good carrier."],
+    hello: ["Woof! I'm Milo. Praveen is busy building pipelines, so I'm on duty.", "Hi friend! Got snacks? I accept snacks.", "Woof woof! Want to leave Praveen a note? I'm a very good carrier."],
     fed: { bone: "Crunch crunch! Best bone ever. 🐾", kibble: "Nom nom nom… bowl licked clean!", carrot: "A carrot? Healthy! I'll pretend it's a treat.", cookie: "COOKIE! You're my new favourite human." },
     cuddle: ["*happy tail wagging intensifies*", "Awww. I needed that. 💙", "Belly rubs accepted. More please."],
     noted: "Got it! I'll carry this straight to Praveen. 🐾",
@@ -26,7 +26,7 @@
     requestAnimationFrame(() => panel.classList.add("is-open"));
     launcher.setAttribute("aria-expanded", "true");
     // The first hello is about the visitor's weather, when weather.js found it.
-    say(window.MileoWeather && !toldWeather ? ((toldWeather = true), window.MileoWeather.line) : pick(LINES.hello));
+    say(window.MiloWeather && !toldWeather ? ((toldWeather = true), window.MiloWeather.line) : pick(LINES.hello));
     refresh();
     $(".mileo-close").focus();
     B.store.set("pgr-mileo-met", "1");
@@ -48,7 +48,7 @@
   let opened = false;
   if (!B.store.get("pgr-mileo-met")) launcher.classList.add("is-new");
   const bubble = launcher.querySelector(".mileo-bubble");
-  const TEASERS = ["Woof! I'm Mileo 👋", "Psst… I'm hungry 🦴", "Want to leave Praveen a note?", "Cuddles? I give great cuddles 🐶", "Shy? Tell me instead, no email needed 🐾"];
+  const TEASERS = ["Woof! I'm Milo 👋", "Psst… I'm hungry 🦴", "Want to leave Praveen a note?", "Cuddles? I give great cuddles 🐶", "Shy? Tell me instead, no email needed 🐾"];
   let teaser = 0, bubbleTimer;
   const pop = (text, ms = 5000) => {
     if (opened || !panel.hidden) return;
@@ -57,7 +57,7 @@
     clearTimeout(bubbleTimer);
     bubbleTimer = setTimeout(() => launcher.classList.remove("has-bubble"), ms);
   };
-  setTimeout(() => pop(TEASERS[teaser++]), 3500);
+  setTimeout(() => pop(TEASERS[teaser++]), 9000);
   setInterval(() => { if (!document.hidden) pop(TEASERS[teaser++ % TEASERS.length]); }, 22000);
   if (!reduce) setInterval(() => {
     if (opened || document.hidden) return;
@@ -69,7 +69,15 @@
     new IntersectionObserver(([e]) => { if (e.isIntersecting) pop("Shy? Tell me instead, no email needed 🐾", 6000); }, { threshold: 0.3 }).observe(contact);
   }
   document.querySelectorAll("[data-open-mileo]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); if (panel.hidden) open(); showTab("note"); }));
-  addEventListener("mileo:weather", (e) => { TEASERS.unshift(e.detail.line); });
+  const heard = (w) => {
+    TEASERS.unshift(w.line);
+    // Once per visit, tell people the sky is theirs: it follows the weather where they are.
+    try { if (sessionStorage.getItem("pgr-sky-told")) return; sessionStorage.setItem("pgr-sky-told", "1"); } catch { /* no storage: tell anyway */ }
+    setTimeout(() => pop(w.about, 8000), Math.max(0, 4000 - performance.now()));
+  };
+  // weather.js may have finished before this file ran (a cached or previewed forecast), so check first
+  if (window.MiloWeather) heard(window.MiloWeather);
+  else addEventListener("mileo:weather", (e) => heard(e.detail), { once: true });
 
   // ---------- mood and speech ----------
   let moodTimer;
@@ -97,7 +105,7 @@
   // ---------- state from the backend ----------
   let state = null;
   const render = () => {
-    if (!state) { $(".mileo-status").textContent = B.enabled ? "Sniffing around for news…" : "Mileo is here, but his memory is offline today."; return; }
+    if (!state) { $(".mileo-status").textContent = B.enabled ? "Sniffing around for news…" : "Milo is here, but his memory is offline today."; return; }
     const parts = [];
     if (state.last_feed) parts.push(`Last fed ${FOOD_NAME[state.last_feed.food] || "a snack"} by a visitor from ${state.last_feed.region}, ${B.ago(state.last_feed.at)}.`);
     else parts.push("Nobody has fed me yet. Be the first!");
@@ -162,16 +170,16 @@
     e.preventDefault();
     const message = form.message.value.trim();
     const replyTo = form.reply.value.trim();
-    if (!message) { status.textContent = "Mileo needs at least a word to carry."; form.message.focus(); return; }
+    if (!message) { status.textContent = "Milo needs at least a word to carry."; form.message.focus(); return; }
     if (replyTo && !form.reply.checkValidity()) { status.textContent = "That email does not look right. Leave it empty to stay anonymous."; form.reply.focus(); return; }
     const btn = form.querySelector("button[type=submit]");
-    btn.disabled = true; status.textContent = "Mileo is running…";
+    btn.disabled = true; status.textContent = "Milo is running…";
     const tasks = [];
     if (B.enabled) tasks.push(B.insert("notes", { message, reply_to: replyTo || null }));
     // Only the real site emails Praveen; the local preview never sends real mail.
     if (B.live && window.emailjs && env.EMAILJS_NOTE_TEMPLATE_ID) {
       tasks.push(window.emailjs.send(env.EMAILJS_SERVICE_ID, env.EMAILJS_NOTE_TEMPLATE_ID, {
-        message, reply_to: replyTo || "(no email left)", region: B.region, from_name: "Mileo",
+        message, reply_to: replyTo || "(no email left)", region: B.region, from_name: "Milo",
       }));
     }
     const results = await Promise.allSettled(tasks);
@@ -186,8 +194,8 @@
     } else {
       const limited = results.some((r) => r.status === "rejected" && /too many/i.test(String(r.reason && r.reason.message)));
       status.innerHTML = limited
-        ? "Mileo has carried a lot of notes from you already. Try again in an hour."
-        : `Mileo tripped over his paws. Please <a href="mailto:${env.CONTACT_EMAIL || "erpraveenganapathy@gmail.com"}">email Praveen</a> instead.`;
+        ? "Milo has carried a lot of notes from you already. Try again in an hour."
+        : `Milo tripped over his paws. Please <a href="mailto:${env.CONTACT_EMAIL || "erpraveenganapathy@gmail.com"}">email Praveen</a> instead.`;
     }
   });
 

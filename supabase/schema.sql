@@ -1,4 +1,4 @@
--- Portfolio backend: visit stats and Mileo the dog.
+-- Portfolio backend: visit stats and Milo the dog.
 -- Run once in Supabase: Dashboard → SQL Editor → New query → paste this file → Run.
 --
 -- Visitors (the public "anon" key) may only INSERT rows, and only through the checks below.
@@ -50,7 +50,9 @@ create policy "anyone can feed or cuddle" on public.mileo_events for insert to a
 drop policy if exists "anyone can leave a note" on public.notes;
 create policy "anyone can leave a note" on public.notes for insert to anon with check (true);
 
--- Simple flood control: at most 3 notes and 30 Mileo events per visitor per hour.
+-- Simple flood control. The visitor id comes from the browser, so a script can send a new one every time;
+-- the site-wide caps per hour are what actually hold: 3 notes and 30 Milo events per visitor,
+-- and at most 20 notes, 300 Milo events and 2000 visits from everyone together.
 create or replace function public.limit_per_visitor() returns trigger
 language plpgsql security definer set search_path = public as $$
 declare recent int;
@@ -58,9 +60,16 @@ begin
   if tg_table_name = 'notes' then
     select count(*) into recent from notes where visitor = new.visitor and created_at > now() - interval '1 hour';
     if recent >= 3 then raise exception 'Too many notes, try again later'; end if;
-  else
+    select count(*) into recent from notes where created_at > now() - interval '1 hour';
+    if recent >= 20 then raise exception 'Too many notes, try again later'; end if;
+  elsif tg_table_name = 'mileo_events' then
     select count(*) into recent from mileo_events where visitor = new.visitor and created_at > now() - interval '1 hour';
-    if recent >= 30 then raise exception 'Mileo is full, try again later'; end if;
+    if recent >= 30 then raise exception 'Milo is full, try again later'; end if;
+    select count(*) into recent from mileo_events where created_at > now() - interval '1 hour';
+    if recent >= 300 then raise exception 'Milo is full, try again later'; end if;
+  else
+    select count(*) into recent from visits where created_at > now() - interval '1 hour';
+    if recent >= 2000 then raise exception 'Too many visits, try again later'; end if;
   end if;
   return new;
 end $$;
@@ -68,6 +77,8 @@ drop trigger if exists notes_limit on public.notes;
 create trigger notes_limit before insert on public.notes for each row execute function public.limit_per_visitor();
 drop trigger if exists mileo_limit on public.mileo_events;
 create trigger mileo_limit before insert on public.mileo_events for each row execute function public.limit_per_visitor();
+drop trigger if exists visits_limit on public.visits;
+create trigger visits_limit before insert on public.visits for each row execute function public.limit_per_visitor();
 
 -- Regions and sources appear on the public page, so only real values are accepted: a source from the
 -- fixed list backend.js uses, and a region that is one of its names or the city part of a real time zone.
@@ -107,7 +118,7 @@ language sql stable security definer set search_path = public as $$
     'daily', (
       select coalesce(json_agg(json_build_object('day', d.day, 'visits', coalesce(v.n, 0)) order by d.day), '[]'::json)
       from generate_series((now() at time zone 'utc')::date - 29, (now() at time zone 'utc')::date, interval '1 day') as d(day)
-      left join (select (created_at at time zone 'utc')::date as day, count(*) n from visits group by 1) v on v.day = d.day
+      left join (select (created_at at time zone 'utc')::date as day, count(*) n from visits where created_at >= now() - interval '30 days' group by 1) v on v.day = d.day
     ),
     'regions', (select coalesce(json_agg(r), '[]'::json) from (select region as name, count(*) as visits from visits group by region order by 2 desc limit 8) r),
     'sources', (select coalesce(json_agg(s), '[]'::json) from (select source as name, count(*) as visits from visits group by source order by 2 desc limit 6) s)
